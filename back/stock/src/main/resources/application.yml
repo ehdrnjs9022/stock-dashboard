@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: system
+    password: 12345
+
+  cache:
+    type: caffeine   # ✅ 캐시 저장소로 Caffeine 사용 지정
+
+naver:
+  client-id: 7iFtt_F85UDT1CbXwKHr
+  client-secret: otX6iaNvRN
+
+caffeine:
+  spec: expireAfterWrite=1h   # ✅ 캐시 만료시간 설정
