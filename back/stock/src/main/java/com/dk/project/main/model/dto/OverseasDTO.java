@@ -1,0 +1,48 @@
+package com.dk.project.main.model.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
+public class OverseasDTO {
+
+	 	@JsonProperty("01. symbol")
+	    private String symbol;
+
+	    @JsonProperty("02. open")
+	    private String open;
+
+	    @JsonProperty("03. high")
+	    private String high;
+
+	    @JsonProperty("04. low")
+	    private String low;
+
+	    @JsonProperty("05. price")
+	    private String price;
+
+	    @JsonProperty("06. volume")
+	    private String volume;
+
+	    @JsonProperty("07. latest trading day")
+	    private String day;
+
+	    @JsonProperty("08. previous close")
+	    private String previousClose;
+
+	    @JsonProperty("09. change")
+	    private String change;
+
+	    @JsonProperty("10. change percent")
+	    private String changePercent;
+	
+}
