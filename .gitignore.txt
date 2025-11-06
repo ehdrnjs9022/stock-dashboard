@@ -2,6 +2,7 @@
 /back/build/
 /back/bin/
 /back/.metadata/
+/back/stock/.metadata/
 /back/.settings/
 /back/.classpath
 /back/.project

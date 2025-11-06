@@ -19,9 +19,8 @@ const Home = () => {
   const [overSeas, setOverSeas] = useState([]);
   const [kospi, setKospi] = useState([]);
   const [btc, setBtc] = useState([]);
+  const [nasdaq, setNasdaq] = useState(null);
   const navi = useNavigate();
-
-  const qqq = overSeas.find((o) => o?.['01. symbol'] === 'QQQ') || null; // 나스닥
 
   // 📰 뉴스
   useEffect(() => {
@@ -91,6 +90,18 @@ const Home = () => {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/nasdaq/month`)
+      .then((res) => {
+        setNasdaq(res.data.items);
+        console.log(res.data.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   // 📈 KOSPI 지수
   useEffect(() => {
     axios
@@ -110,6 +121,7 @@ const Home = () => {
       .then((res) => {
         const btcData = res.data.items.find((c) => c.market === 'KRW-BTC');
         setBtc(btcData);
+        console.log(btcData);
       })
       .catch((err) => {
         console.log(err);
@@ -132,13 +144,12 @@ const Home = () => {
           </div>
           <div
             className={`sub ${
-              kospi?.[0]?.compareToPreviousPrice?.code === '2'
+              kospi?.[0]?.compareToPreviousPrice?.code == 2
                 ? 'positive'
                 : 'negative'
             }`}
           >
-            전일대비 {kospi?.[0]?.compareToPreviousClosePrice} (
-            {kospi?.[0]?.compareToPreviousPrice?.text})
+            등락률 {kospi?.[0]?.compareToPreviousClosePrice}%
           </div>
         </IndexCard>
 
@@ -148,11 +159,32 @@ const Home = () => {
         >
           <h2>NASDAQ</h2>
           <div className="value">
-            {qqq && qqq['05. price'] ? qqq['05. price'] : '-'}
+            {nasdaq
+              ? Number(
+                  (nasdaq?.chart?.result[0]?.indicators?.quote[0]?.close[22]).toFixed(
+                    2
+                  )
+                ).toLocaleString()
+              : '_'}
           </div>
-          <div className={`sub ${qqq > 0 ? 'positive' : 'negative'}`}>
-            변동률{' '}
-            {qqq && qqq['09. change'] ? qqq['09. change'].toFixed(2) : '-'}
+          <div
+            className={`sub ${
+              (nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
+                nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
+                nasdaq?.chart?.result[0]?.meta?.chartPreviousClose >
+              0
+                ? 'positive'
+                : 'negative'
+            }`}
+          >
+            등락률{' '}
+            {(
+              ((nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
+                nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
+                nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) *
+              100
+            ).toFixed(2)}
+            %
           </div>
         </IndexCard>
 
@@ -167,10 +199,10 @@ const Home = () => {
           </div>
           <div
             className={`sub ${
-              btc?.signed_change_rate > 0 ? 'positive' : 'negative'
+              btc?.change_rate * 100 > 0 ? 'positive' : 'negative'
             }`}
           >
-            24H 변화율 {(btc?.change_rate * 100).toFixed(2)}%
+            등락률 {(btc?.change_rate * 100).toFixed(2)}%
           </div>
         </IndexCard>
       </ChartBox>
@@ -242,7 +274,9 @@ const Home = () => {
                     <tr key={idx}>
                       <td>{o['01. symbol'] || o.symbol || '-'}</td>
                       <td>{o['05. price'] || o.price || '-'}</td>
-                      <td>{o['10. change percent'] || '-'}</td>
+                      <td>
+                        {Number(o['10. change percent']).toFixed(2) || '-'}
+                      </td>
                     </tr>
                   ))
               ) : (

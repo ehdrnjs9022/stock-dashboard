@@ -89,13 +89,16 @@ const Domestic = () => {
                 : 'negative'
             }`}
           >
-            전일대비 {kospi?.[0]?.compareToPreviousClosePrice} (
-            {kospi?.[0]?.compareToPreviousPrice?.text})
+            전일대비 {kospi?.[0]?.compareToPreviousClosePrice}
           </div>
-          <div className="sub">등락률 {kospi?.[0]?.fluctuationsRatio}%</div>
-          <div className="sub">시가 {kospi?.[0]?.openPrice}</div>
-          <div className="sub">고가 {kospi?.[0]?.highPrice}</div>
-          <div className="sub">저가 {kospi?.[0]?.lowPrice}</div>
+          <div
+            className={`sub ${
+              kospi?.[0]?.fluctuationsRatio ? 'positive' : 'negative'
+            }`}
+          >
+            등락률{kospi?.[0]?.fluctuationsRatio}%
+          </div>
+          기준일
         </IndexCard>
 
         <IndexCard
@@ -111,13 +114,15 @@ const Domestic = () => {
                 : 'negative'
             }`}
           >
-            전일대비 {kosdaq?.[0]?.compareToPreviousClosePrice} (
-            {kosdaq?.[0]?.compareToPreviousPrice?.text})
+            전일대비 {kosdaq?.[0]?.compareToPreviousClosePrice}
           </div>
-          <div className="sub">등락률 {kosdaq?.[0]?.fluctuationsRatio}%</div>
-          <div className="sub">시가 {kosdaq?.[0]?.openPrice}</div>
-          <div className="sub">고가 {kosdaq?.[0]?.highPrice}</div>
-          <div className="sub">저가 {kosdaq?.[0]?.lowPrice}</div>
+          <div
+            className={`sub ${
+              kosdaq?.[0]?.fluctuationsRatio > 0 ? 'positive' : 'negative'
+            }`}
+          >
+            등락률 {kosdaq?.[0]?.fluctuationsRatio}%
+          </div>
         </IndexCard>
       </IndexWrap>
 

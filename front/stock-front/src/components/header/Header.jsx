@@ -28,15 +28,6 @@ const Header = () => {
   return (
     <HeaderWrap>
       {/* 상단 공지 배너 */}
-      <TopNotice>
-        🕓{' '}
-        {new Date().toLocaleString('ko-KR', {
-          weekday: 'short',
-          hour: '2-digit',
-          minute: '2-digit',
-        })}{' '}
-        기준 실시간 데이터
-      </TopNotice>
 
       <Container>
         {/* 메인 헤더 */}
