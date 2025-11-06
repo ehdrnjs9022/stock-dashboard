@@ -13,11 +13,10 @@ const OverSeas = () => {
   const [overSeas, setOverSeas] = useState([]);
   const [kospi, setKospi] = useState([]);
   const [kosdaq, setKosdaq] = useState([]);
+  const [nasdaq, setNasdaq] = useState(null);
+  const [sp500, setSp500] = useState(null);
+  const [dowjones, setDowjones] = useState(null);
   const navi = useNavigate();
-
-  const qqq = overSeas.find((o) => o?.['01. symbol'] === 'QQQ') || null;
-  const spy = overSeas.find((o) => o?.['01. symbol'] === 'SPY') || null;
-  const dia = overSeas.find((o) => o?.['01. symbol'] === 'DIA') || null;
 
   useEffect(() => {
     axios
@@ -75,6 +74,39 @@ const OverSeas = () => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/nasdaq/month`)
+      .then((res) => {
+        setNasdaq(res.data.items);
+
+        console.log(res.data.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/dowjones/month`)
+      .then((res) => {
+        setDowjones(res.data.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/sp500/month`)
+      .then((res) => {
+        setSp500(res.data.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <Container>
       <Banner>
@@ -83,45 +115,64 @@ const OverSeas = () => {
       </Banner>
 
       <IndexWrap>
-        {/* QQQ */}
         <IndexCard
           onClick={() => navi('/market/nasdaq')}
           style={{ cursor: 'pointer' }}
         >
-          <h2>NASDAQ 100 {qqq && qqq['07. latest trading day']}</h2>
+          <h2>NASDAQ 100 </h2>
           <div className="value">
-            {qqq && qqq['05. price'] ? qqq['05. price'] : '-'}
+            {Number(
+              Number(
+                nasdaq?.chart?.result[0]?.meta?.regularMarketPrice
+              ).toFixed(2)
+            ).toLocaleString()}
           </div>
           <div className="sub">
             <span className="sub-label">전일대비</span>
-            <span className="sub-value">
-              {qqq && qqq['09. change'] ? qqq['09. change'] : '-'}
+            <span
+              className={`sub ${
+                nasdaq?.chart?.result[0]?.meta?.chartPreviousClose > 0
+                  ? 'positive'
+                  : 'negetive'
+              }`}
+            >
+              {' '}
+              {Number(
+                Number(
+                  nasdaq?.chart?.result[0]?.meta?.chartPreviousClose
+                ).toFixed(2)
+              ).toLocaleString()}
             </span>
           </div>
           <div className="sub">
             <span className="sub-label">등락률</span>
-            <span className="sub-value">
-              {qqq && qqq['10. change percent']
-                ? qqq['10. change percent']
-                : '-'}
+            <span
+              className={`sub ${
+                (nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
+                  nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
+                  nasdaq?.chart?.result[0]?.meta?.chartPreviousClose >
+                0
+                  ? 'positive'
+                  : 'negative'
+              }`}
+            >
+              {nasdaq?.chart?.result[0]?.meta
+                ? (
+                    ((nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
+                      nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
+                      nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) *
+                    100
+                  ).toFixed(2)
+                : '_'}
+              %
             </span>
           </div>
           <div className="sub">
-            <span className="sub-label">시가</span>
+            <span>기준일</span>
             <span className="sub-value">
-              {qqq && qqq['02. open'] ? qqq['02. open'] : '-'}
-            </span>
-          </div>
-          <div className="sub">
-            <span className="sub-label">고가</span>
-            <span className="sub-value">
-              {qqq && qqq['03. high'] ? qqq['03. high'] : '-'}
-            </span>
-          </div>
-          <div className="sub">
-            <span className="sub-label">저가</span>
-            <span className="sub-value">
-              {qqq && qqq['04. low'] ? qqq['04. low'] : '-'}
+              {new Date(
+                nasdaq?.chart.result[0]?.timestamp[21] * 1000
+              ).toLocaleDateString('ko-KR')}
             </span>
           </div>
         </IndexCard>
@@ -131,83 +182,122 @@ const OverSeas = () => {
           onClick={() => navi('/market/sp500')}
           style={{ cursor: 'pointer' }}
         >
-          <h2>S&P 500 {spy && spy['07. latest trading day']}</h2>
+          <h2>S&P 500</h2>
           <div className="value">
-            {spy && spy['05. price'] ? spy['05. price'] : '-'}
+            {Number(
+              Number(sp500?.chart?.result[0]?.meta?.regularMarketPrice).toFixed(
+                2
+              )
+            ).toLocaleString()}
           </div>
           <div className="sub">
             <span className="sub-label">전일대비</span>
-            <span className="sub-value">
-              {spy && spy['09. change'] ? spy['09. change'] : '-'}
+            <span
+              className={`sub ${
+                sp500?.chart?.result[0]?.meta?.chartPreviousClose > 0
+                  ? 'positive'
+                  : 'negative'
+              }`}
+            >
+              {' '}
+              {Number(
+                Number(
+                  sp500?.chart?.result[0]?.meta?.chartPreviousClose
+                ).toFixed(2)
+              ).toLocaleString()}
             </span>
           </div>
           <div className="sub">
             <span className="sub-label">등락률</span>
-            <span className="sub-value">
-              {spy && spy['10. change percent']
-                ? spy['10. change percent']
-                : '-'}
+            <span
+              className={`sub ${
+                (sp500?.chart?.result[0]?.meta?.regularMarketPrice -
+                  sp500?.chart?.result[0]?.meta?.chartPreviousClose) /
+                  sp500?.chart?.result[0]?.meta?.chartPreviousClose >
+                0
+                  ? 'positive'
+                  : 'negative'
+              }`}
+            >
+              {sp500?.chart?.result[0]?.meta
+                ? (
+                    ((sp500?.chart?.result[0]?.meta?.regularMarketPrice -
+                      sp500?.chart?.result[0]?.meta?.chartPreviousClose) /
+                      sp500?.chart?.result[0]?.meta?.chartPreviousClose) *
+                    100
+                  ).toFixed(2)
+                : '_'}
+              %
             </span>
           </div>
           <div className="sub">
-            <span className="sub-label">시가</span>
+            <span className="sub-label">기준일</span>
             <span className="sub-value">
-              {spy && spy['02. open'] ? spy['02. open'] : '-'}
-            </span>
-          </div>
-          <div className="sub">
-            <span className="sub-label">고가</span>
-            <span className="sub-value">
-              {spy && spy['03. high'] ? spy['03. high'] : '-'}
-            </span>
-          </div>
-          <div className="sub">
-            <span className="sub-label">저가</span>
-            <span className="sub-value">
-              {spy && spy['04. low'] ? spy['04. low'] : '-'}
+              {new Date(
+                sp500?.chart.result[0]?.timestamp[21] * 1000
+              ).toLocaleDateString('ko-KR')}
             </span>
           </div>
         </IndexCard>
-
         {/* DIA */}
         <IndexCard
           onClick={() => navi('/market/dowjones')}
           style={{ cursor: 'pointer' }}
         >
-          <h2>Dow Jones {dia && dia['07. latest trading day']}</h2>
+          <h2>Dow Jones</h2>
           <div className="value">
-            {dia && dia['05. price'] ? dia['05. price'] : '-'}
+            {Number(
+              Number(
+                dowjones?.chart?.result[0]?.meta?.regularMarketPrice
+              ).toFixed(2)
+            ).toLocaleString()}
           </div>
           <div className="sub">
             <span className="sub-label">전일대비</span>
-            <span className="sub-value">
-              {dia && dia['09. change'] ? dia['09. change'] : '-'}
+            <span
+              className={`sub ${
+                dowjones?.chart?.result[0]?.meta?.chartPreviousClose > 0
+                  ? 'positive'
+                  : 'negative'
+              }`}
+            >
+              {' '}
+              {Number(
+                Number(
+                  dowjones?.chart?.result[0]?.meta?.chartPreviousClose
+                ).toFixed(2)
+              ).toLocaleString()}
             </span>
           </div>
           <div className="sub">
             <span className="sub-label">등락률</span>
-            <span className="sub-value">
-              {dia && dia['10. change percent']
-                ? dia['10. change percent']
-                : '-'}
+            <span
+              className={`sub ${
+                (dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
+                  dowjones?.chart?.result[0]?.meta?.chartPreviousClose) /
+                  dowjones?.chart?.result[0]?.meta?.chartPreviousClose >
+                0
+                  ? 'positive'
+                  : 'negetive'
+              }`}
+            >
+              {dowjones?.chart?.result[0]?.meta
+                ? (
+                    ((dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
+                      dowjones?.chart?.result[0]?.meta?.chartPreviousClose) /
+                      dowjones?.chart?.result[0]?.meta?.chartPreviousClose) *
+                    100
+                  ).toFixed(2)
+                : '_'}
+              %
             </span>
           </div>
           <div className="sub">
-            <span className="sub-label">시가</span>
+            <span className="sub-label">기준일</span>
             <span className="sub-value">
-              {dia && dia['02. open'] ? dia['02. open'] : '-'}
-            </span>
-          </div>
-          <div className="sub">
-            <span className="sub-label">고가</span>
-            <span className="sub-value">
-              {dia && dia['03. high'] ? dia['03. high'] : '-'}
-            </span>
-          </div>
-          <div className="sub">
-            <span className="sub-label">저가</span>
-            <span className="sub-value">
-              {dia && dia['04. low'] ? dia['04. low'] : '-'}
+              {new Date(
+                dowjones?.chart.result[0]?.timestamp[21] * 1000
+              ).toLocaleDateString('ko-KR')}
             </span>
           </div>
         </IndexCard>

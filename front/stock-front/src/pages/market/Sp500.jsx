@@ -194,6 +194,7 @@ const Sp500 = () => {
                     100
                   ).toFixed(2)
                 : '_'}
+              %
             </span>
           </DetailItem>
         </div>

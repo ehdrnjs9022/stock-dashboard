@@ -37,67 +37,67 @@ export const Banner = styled.div`
 export const IndexWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 30px;
+  gap: 16px; /* 기존 20 → 16 */
+  margin-bottom: 28px;
 `;
 
 export const IndexCard = styled.div`
   flex: 1;
   background: #fff;
-  border-radius: 14px;
-  padding: 24px 20px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 20px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   }
 
   h2 {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     color: #1f2a44;
   }
 
   .value {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 800;
-    margin-bottom: 10px;
     color: #0d1117;
+    margin-bottom: 8px;
   }
 
   .sub {
     font-size: 15px;
+    line-height: 1.5;
     color: #444;
-    margin: 6px 0;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    align-items: center;
-    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    margin: 3px 0;
   }
 
-  .sub-label {
-    font-weight: 600;
-    color: #2a5298; /* 파란 강조 */
-  }
-
-  .sub-value {
-    font-weight: 500;
-    color: #222;
-  }
-
-  .positive {
+  .sub .positive {
     color: #d32f2f;
     font-weight: 600;
   }
 
-  .negative {
+  .sub .negative {
     color: #1976d2;
     font-weight: 600;
+  }
+
+  .sub-label {
+    font-weight: 600;
+    color: #2a5298;
+  }
+
+  .IndexCard {
+    background: #fff;
+    border-radius: 14px;
+    padding: 22px 18px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.25s ease;
   }
 `;
 
