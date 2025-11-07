@@ -127,52 +127,49 @@ const OverSeas = () => {
               ).toFixed(2)
             ).toLocaleString()}
           </div>
-          <div className="sub">
-            <span className="sub-label">전일대비</span>
-            <span
-              className={`sub ${
-                nasdaq?.chart?.result[0]?.meta?.chartPreviousClose > 0
-                  ? 'positive'
-                  : 'negetive'
-              }`}
-            >
-              {' '}
-              {Number(
-                Number(
+          <div
+            className={`sub ${
+              nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
+                nasdaq?.chart?.result[0]?.meta?.chartPreviousClose >
+              0
+                ? 'positive'
+                : 'negative'
+            }`}
+          >
+            전일대비{' '}
+            {Number(
+              Number(
+                nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
                   nasdaq?.chart?.result[0]?.meta?.chartPreviousClose
+              ).toFixed(2)
+            ).toLocaleString()}
+          </div>
+          <div
+            className={`sub ${
+              (nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
+                nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
+                nasdaq?.chart?.result[0]?.meta?.chartPreviousClose >
+              0
+                ? 'positive'
+                : 'negative'
+            }`}
+          >
+            등락률{' '}
+            {nasdaq?.chart?.result[0]?.meta
+              ? (
+                  ((nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
+                    nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
+                    nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) *
+                  100
                 ).toFixed(2)
-              ).toLocaleString()}
-            </span>
+              : '_'}
+            %
           </div>
           <div className="sub">
-            <span className="sub-label">등락률</span>
-            <span
-              className={`sub ${
-                (nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
-                  nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
-                  nasdaq?.chart?.result[0]?.meta?.chartPreviousClose >
-                0
-                  ? 'positive'
-                  : 'negative'
-              }`}
-            >
-              {nasdaq?.chart?.result[0]?.meta
-                ? (
-                    ((nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
-                      nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
-                      nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) *
-                    100
-                  ).toFixed(2)
-                : '_'}
-              %
-            </span>
-          </div>
-          <div className="sub">
-            <span>기준일</span>
             <span className="sub-value">
               {new Date(
-                nasdaq?.chart.result[0]?.timestamp[21] * 1000
-              ).toLocaleDateString('ko-KR')}
+                nasdaq?.chart.result[0]?.timestamp[22] * 1000
+              ).toLocaleDateString('ko-KR', { timeZone: 'America/New_York' })}
             </span>
           </div>
         </IndexCard>
@@ -190,52 +187,49 @@ const OverSeas = () => {
               )
             ).toLocaleString()}
           </div>
-          <div className="sub">
-            <span className="sub-label">전일대비</span>
-            <span
-              className={`sub ${
-                sp500?.chart?.result[0]?.meta?.chartPreviousClose > 0
-                  ? 'positive'
-                  : 'negative'
-              }`}
-            >
-              {' '}
-              {Number(
-                Number(
+          <div
+            className={`sub ${
+              sp500?.chart?.result[0]?.meta?.regularMarketPrice -
+                sp500?.chart?.result[0]?.meta?.chartPreviousClose >
+              0
+                ? 'positive'
+                : 'negative'
+            }`}
+          >
+            전일대비{' '}
+            {Number(
+              Number(
+                sp500?.chart?.result[0]?.meta?.regularMarketPrice -
                   sp500?.chart?.result[0]?.meta?.chartPreviousClose
+              ).toFixed(2)
+            ).toLocaleString()}
+          </div>
+          <div
+            className={`sub ${
+              (sp500?.chart?.result[0]?.meta?.regularMarketPrice -
+                sp500?.chart?.result[0]?.meta?.chartPreviousClose) /
+                sp500?.chart?.result[0]?.meta?.chartPreviousClose >
+              0
+                ? 'positive'
+                : 'negative'
+            }`}
+          >
+            등락률{' '}
+            {sp500?.chart?.result[0]?.meta
+              ? (
+                  ((sp500?.chart?.result[0]?.meta?.regularMarketPrice -
+                    sp500?.chart?.result[0]?.meta?.chartPreviousClose) /
+                    sp500?.chart?.result[0]?.meta?.chartPreviousClose) *
+                  100
                 ).toFixed(2)
-              ).toLocaleString()}
-            </span>
+              : '_'}
+            %
           </div>
           <div className="sub">
-            <span className="sub-label">등락률</span>
-            <span
-              className={`sub ${
-                (sp500?.chart?.result[0]?.meta?.regularMarketPrice -
-                  sp500?.chart?.result[0]?.meta?.chartPreviousClose) /
-                  sp500?.chart?.result[0]?.meta?.chartPreviousClose >
-                0
-                  ? 'positive'
-                  : 'negative'
-              }`}
-            >
-              {sp500?.chart?.result[0]?.meta
-                ? (
-                    ((sp500?.chart?.result[0]?.meta?.regularMarketPrice -
-                      sp500?.chart?.result[0]?.meta?.chartPreviousClose) /
-                      sp500?.chart?.result[0]?.meta?.chartPreviousClose) *
-                    100
-                  ).toFixed(2)
-                : '_'}
-              %
-            </span>
-          </div>
-          <div className="sub">
-            <span className="sub-label">기준일</span>
             <span className="sub-value">
               {new Date(
-                sp500?.chart.result[0]?.timestamp[21] * 1000
-              ).toLocaleDateString('ko-KR')}
+                sp500?.chart.result[0]?.timestamp[22] * 1000
+              ).toLocaleDateString('ko-KR', { timeZone: 'America/New_York' })}
             </span>
           </div>
         </IndexCard>
@@ -252,52 +246,49 @@ const OverSeas = () => {
               ).toFixed(2)
             ).toLocaleString()}
           </div>
-          <div className="sub">
-            <span className="sub-label">전일대비</span>
-            <span
-              className={`sub ${
-                dowjones?.chart?.result[0]?.meta?.chartPreviousClose > 0
-                  ? 'positive'
-                  : 'negative'
-              }`}
-            >
-              {' '}
-              {Number(
-                Number(
+          <div
+            className={`sub ${
+              dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
+                dowjones?.chart?.result[0]?.meta?.chartPreviousClose >
+              0
+                ? 'positive'
+                : 'negative'
+            }`}
+          >
+            전일대비{' '}
+            {Number(
+              Number(
+                dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
                   dowjones?.chart?.result[0]?.meta?.chartPreviousClose
+              ).toFixed(2)
+            ).toLocaleString()}
+          </div>
+          <div
+            className={`sub ${
+              (dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
+                dowjones?.chart?.result[0]?.meta?.chartPreviousClose) /
+                dowjones?.chart?.result[0]?.meta?.chartPreviousClose >
+              0
+                ? 'positive'
+                : 'negetive'
+            }`}
+          >
+            등락률{' '}
+            {dowjones?.chart?.result[0]?.meta
+              ? (
+                  ((dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
+                    dowjones?.chart?.result[0]?.meta?.chartPreviousClose) /
+                    dowjones?.chart?.result[0]?.meta?.chartPreviousClose) *
+                  100
                 ).toFixed(2)
-              ).toLocaleString()}
-            </span>
+              : '_'}
+            %
           </div>
           <div className="sub">
-            <span className="sub-label">등락률</span>
-            <span
-              className={`sub ${
-                (dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
-                  dowjones?.chart?.result[0]?.meta?.chartPreviousClose) /
-                  dowjones?.chart?.result[0]?.meta?.chartPreviousClose >
-                0
-                  ? 'positive'
-                  : 'negetive'
-              }`}
-            >
-              {dowjones?.chart?.result[0]?.meta
-                ? (
-                    ((dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
-                      dowjones?.chart?.result[0]?.meta?.chartPreviousClose) /
-                      dowjones?.chart?.result[0]?.meta?.chartPreviousClose) *
-                    100
-                  ).toFixed(2)
-                : '_'}
-              %
-            </span>
-          </div>
-          <div className="sub">
-            <span className="sub-label">기준일</span>
             <span className="sub-value">
               {new Date(
-                dowjones?.chart.result[0]?.timestamp[21] * 1000
-              ).toLocaleDateString('ko-KR')}
+                dowjones?.chart.result[0]?.timestamp[22] * 1000
+              ).toLocaleDateString('ko-KR', { timeZone: 'America/New_York' })}
             </span>
           </div>
         </IndexCard>

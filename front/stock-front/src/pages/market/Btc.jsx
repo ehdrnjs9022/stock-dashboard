@@ -138,7 +138,7 @@ const Btc = () => {
         <div className="detail-body">
           <DetailItem>
             <span className="label">거래일</span>
-            <span className="value">
+            <span>
               {new Date(
                 selectedData ? selectedData.candle_date_time_kst : '_'
               ).toLocaleString()}
@@ -146,9 +146,15 @@ const Btc = () => {
           </DetailItem>
           <DetailItem>
             <span className="label">전일 대비 구분</span>
-            <span className="value">
+            <span
+              className={
+                selectedData?.trade_price > selectedData?.prev_closing_price
+                  ? 'positive'
+                  : 'negative'
+              }
+            >
               {selectedData
-                ? selectedData.trade_price > selectedData.prev_closing_price
+                ? selectedData?.trade_price > selectedData?.prev_closing_price
                   ? '▲ 상승'
                   : '▼ 하락'
                 : '-'}
@@ -156,22 +162,36 @@ const Btc = () => {
           </DetailItem>
           <DetailItem>
             <span className="label">전일 종가 대비</span>
-            <span className="value">
+            <span
+              className={
+                selectedData?.trade_price - selectedData?.prev_closing_price > 0
+                  ? 'positive'
+                  : 'negative'
+              }
+            >
               {selectedData
                 ? (
-                    selectedData.trade_price - selectedData.prev_closing_price
+                    selectedData?.trade_price - selectedData?.prev_closing_price
                   ).toLocaleString()
                 : '_'}
             </span>
           </DetailItem>
           <DetailItem>
             <span className="label">등락률</span>
-            <span className="value">
+            <span
+              className={
+                (selectedData?.trade_price - selectedData?.prev_closing_price) /
+                  selectedData?.prev_closing_price >
+                0
+                  ? 'positive'
+                  : 'negative'
+              }
+            >
               {selectedData
                 ? (
-                    ((selectedData.trade_price -
-                      selectedData.prev_closing_price) /
-                      selectedData.prev_closing_price) *
+                    ((selectedData?.trade_price -
+                      selectedData?.prev_closing_price) /
+                      selectedData?.prev_closing_price) *
                     100
                   ).toFixed(2)
                 : '_'}

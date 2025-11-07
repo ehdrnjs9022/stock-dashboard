@@ -70,6 +70,8 @@ public class CryptoServiceImpl implements CryptoService{
 					coin.setChange_rate(ticker.getChange_rate());
 					coin.setTrade_price(ticker.getTrade_price());
 					coin.setChange_price(ticker.getChange_price());
+					coin.setSigned_change_rate(ticker.getSigned_change_rate());
+					coin.setTrade_timestamp(ticker.getTrade_timestamp());
 					
 					
 					coinList.add(coin);

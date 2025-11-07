@@ -76,18 +76,20 @@ const Nasdaq = () => {
       {/* 상단 핵심 요약 */}
       <SummaryBox>
         <div className="summary-header">
-          <h2>{monthData[0]?.date}</h2>
+          <h2>{monthData[22]?.date}</h2>
           <span className="label">NASDAQ</span>
         </div>
         <div className="price">
-          {monthData[0]?.regularMarketPrice.toFixed(2).toLocaleString()}
+          {Number(
+            monthData[22]?.regularMarketPrice.toFixed(2)
+          ).toLocaleString()}
         </div>
         <div className="sub positive">
           {Number(
             (
-              ((monthData[0]?.regularMarketPrice -
-                monthData[0]?.chartPreviousClose) /
-                monthData[0]?.chartPreviousClose) *
+              ((monthData[22]?.regularMarketPrice -
+                monthData[22]?.chartPreviousClose) /
+                monthData[22]?.chartPreviousClose) *
               100
             ).toFixed(2)
           ).toLocaleString()}
@@ -164,7 +166,13 @@ const Nasdaq = () => {
           </DetailItem>
           <DetailItem>
             <span className="label">전일 대비 구분</span>
-            <span className="value">
+            <span
+              className={
+                selectedData?.close - selectedData?.prevClose > 0
+                  ? 'positive'
+                  : 'negative'
+              }
+            >
               {selectedData
                 ? selectedData?.close - selectedData?.prevClose > 0
                   ? '▲ 상승'
@@ -174,7 +182,13 @@ const Nasdaq = () => {
           </DetailItem>
           <DetailItem>
             <span className="label">전일 종가 대비</span>
-            <span className="value">
+            <span
+              className={
+                selectedData?.close - selectedData?.prevClose > 0
+                  ? 'positive'
+                  : 'negative'
+              }
+            >
               {selectedData
                 ? Number(
                     (selectedData?.close - selectedData?.prevClose)
@@ -186,7 +200,15 @@ const Nasdaq = () => {
           </DetailItem>
           <DetailItem>
             <span className="label">등락률</span>
-            <span className="value">
+            <span
+              className={
+                (selectedData?.close - selectedData?.prevClose) /
+                  selectedData?.prevClose >
+                0
+                  ? 'positive'
+                  : 'negative'
+              }
+            >
               {selectedData
                 ? (
                     ((selectedData?.close - selectedData?.prevClose) /

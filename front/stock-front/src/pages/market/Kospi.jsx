@@ -74,17 +74,19 @@ const Kospi = () => {
       {/* 상단 핵심 요약 */}
       <SummaryBox>
         <div className="summary-header">
-          <h2>{monthData[17]?.date}</h2>
+          <h2>{monthData[20]?.date}</h2>
           <span className="label">KOSPI</span>
         </div>
-        <div className="price">{monthData[17]?.regularMarketPrice}</div>
+        <div className="price">
+          {monthData[20]?.regularMarketPrice.toFixed(2)}
+        </div>
         <div className="sub positive">
           {' '}
           {Number(
             (
-              ((monthData[17]?.regularMarketPrice -
-                monthData[17]?.chartPreviousClose) /
-                monthData[17]?.chartPreviousClose) *
+              ((monthData[20]?.regularMarketPrice -
+                monthData[20]?.chartPreviousClose) /
+                monthData[20]?.chartPreviousClose) *
               100
             ).toFixed(2)
           ).toLocaleString()}
@@ -167,8 +169,14 @@ const Kospi = () => {
             </span>
           </DetailItem>
           <DetailItem>
-            <span className="label">전일 대비 구분</span>
-            <span className="value">
+            <span>전일 대비 구분</span>
+            <span
+              className={
+                selectedData?.close - selectedData?.prevClose > 0
+                  ? 'positive'
+                  : 'negative'
+              }
+            >
               {selectedData
                 ? selectedData.close - selectedData.prevClose > 0
                   ? '▲ 상승'
@@ -178,7 +186,13 @@ const Kospi = () => {
           </DetailItem>
           <DetailItem>
             <span className="label">전일 종가 대비</span>
-            <span className="value">
+            <span
+              className={
+                selectedData?.close - selectedData?.prevClose > 0
+                  ? 'positive'
+                  : 'negative'
+              }
+            >
               {selectedData
                 ? (selectedData.close - selectedData.prevClose).toFixed(2)
                 : '-'}
@@ -186,7 +200,15 @@ const Kospi = () => {
           </DetailItem>
           <DetailItem>
             <span className="label">등락률</span>
-            <span className="value">
+            <span
+              className={
+                (selectedData?.close - selectedData?.prevClose) /
+                  selectedData?.prevClose >
+                0
+                  ? 'positive'
+                  : 'negative'
+              }
+            >
               {selectedData
                 ? (
                     ((selectedData.close - selectedData.prevClose) /

@@ -14,6 +14,7 @@ const Crypto = () => {
   const [ticker, setTicker] = useState([]);
   const [selectedMarket, setSelectedMarket] = useState('KRW'); // 기본값 KRW
   const navi = useNavigate();
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/crypto`)
@@ -55,11 +56,19 @@ const Crypto = () => {
               ?.trade_price?.toLocaleString() || '_'}{' '}
             {selectedMarket}
           </div>
-          <div className="sub">
+          <div
+            className={
+              ticker[0]?.signed_change_rate > 0
+                ? 'positive'
+                : ticker[0]?.signed_change_rate < 0
+                ? 'negative'
+                : '_'
+            }
+          >
             24시간 변화율{' '}
             {(
               (ticker.find((coin) => coin.market === `${selectedMarket}-BTC`)
-                ?.change_rate ?? 0) * 100
+                ?.signed_change_rate ?? 0) * 100
             ).toFixed(2)}
             %
           </div>
@@ -72,6 +81,11 @@ const Crypto = () => {
                     ?.acc_trade_volume_24h.toFixed(0)
                 ).toLocaleString()
               : '_'}
+          </div>
+          <div>
+            {new Date(ticker[0]?.trade_timestamp).toLocaleDateString('ko-KR', {
+              timeZone: 'UTC',
+            })}
           </div>
         </IndexCard>
 
@@ -87,7 +101,15 @@ const Crypto = () => {
               ?.trade_price?.toLocaleString() || '_'}{' '}
             {selectedMarket}
           </div>
-          <div className="sub">
+          <div
+            className={
+              ticker[0]?.signed_change_rate > 0
+                ? 'positive'
+                : ticker[0]?.signed_change_rate < 0
+                ? 'negative'
+                : '_'
+            }
+          >
             24시간 변화율{' '}
             {(
               (ticker.find((coin) => coin.market === `${selectedMarket}-ETH`)
@@ -104,6 +126,11 @@ const Crypto = () => {
                     ?.acc_trade_volume_24h.toFixed(0)
                 ).toLocaleString()
               : '_'}
+          </div>
+          <div>
+            {new Date(ticker[0]?.trade_timestamp).toLocaleDateString('ko-KR', {
+              timeZone: 'UTC',
+            })}
           </div>
         </IndexCard>
       </IndexWrap>
@@ -138,7 +165,17 @@ const Crypto = () => {
                   <td>{coin.korean_name}</td>
                   <td>{coin.trade_price?.toLocaleString() || '-'}</td>
                   <td>{coin.change_price?.toLocaleString() || '-'}</td>
-                  <td>{(coin.change_rate * 100).toFixed(2)}%</td>
+                  <td
+                    className={
+                      coin.signed_change_rate > 0
+                        ? 'positive'
+                        : coin.signed_change_rate < 0
+                        ? 'negative'
+                        : ''
+                    }
+                  >
+                    {(coin.signed_change_rate * 100).toFixed(2)}%
+                  </td>
                   <td>
                     {coin.acc_trade_price_24h
                       ? `${Number(
