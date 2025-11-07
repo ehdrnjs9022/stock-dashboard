@@ -49,6 +49,7 @@ const Domestic = () => {
       .get(`http://localhost:8080/api/kospi`)
       .then((res) => {
         setKospi(res.data.items);
+        console.log(res.data.items);
       })
       .catch((err) => {
         console.log(err);
@@ -80,7 +81,7 @@ const Domestic = () => {
           onClick={() => navi('/market/kospi')}
           style={{ cursor: 'pointer' }}
         >
-          <h2>KOSPI {kospi?.[0]?.localTradedAt}</h2>
+          <h2>KOSPI</h2>
           <div className="value">{kospi?.[0]?.closePrice}</div>
           <div
             className={`sub ${
@@ -98,14 +99,14 @@ const Domestic = () => {
           >
             등락률{kospi?.[0]?.fluctuationsRatio}%
           </div>
-          기준일
+          <div> {new Date(kospi?.[0]?.localTradedAt).toLocaleDateString()}</div>
         </IndexCard>
 
         <IndexCard
           onClick={() => navi('/market/kosdaq')}
           style={{ cursor: 'pointer' }}
         >
-          <h2>KOSDAQ {kosdaq?.[0]?.localTradedAt}</h2>
+          <h2>KOSDAQ</h2>
           <div className="value">{kosdaq?.[0]?.closePrice}</div>
           <div
             className={`sub ${
@@ -123,6 +124,7 @@ const Domestic = () => {
           >
             등락률 {kosdaq?.[0]?.fluctuationsRatio}%
           </div>
+          <div>{new Date(kosdaq?.[0]?.localTradedAt).toLocaleDateString()}</div>
         </IndexCard>
       </IndexWrap>
 

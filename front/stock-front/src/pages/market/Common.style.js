@@ -184,4 +184,11 @@ export const DetailItem = styled.div`
     font-weight: 700;
     color: #222;
   }
+  .positive {
+    color: #d32f2f;
+  }
+
+  .negative {
+    color: #1976d2;
+  }
 `;
