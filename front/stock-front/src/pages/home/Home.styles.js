@@ -175,6 +175,11 @@ export const MainCenter = styled(Card)`
       color: #333;
     }
 
+    .sub {
+      color: #333;
+      font-weight: 600;
+    }
+
     .positive {
       color: #e53935;
       font-weight: 600;

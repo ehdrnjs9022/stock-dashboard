@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +17,7 @@ import com.dk.project.main.model.dto.MainResponseDTO;
 import com.dk.project.main.model.dto.OverseasDTO;
 import com.dk.project.main.model.dto.StockDTO;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -63,7 +61,7 @@ public class MainServiceImpl implements MainService{
     }
 
 	@Override
-	public ResponseEntity<JsonNode> getMainSearch(String query) {
+	public ResponseEntity<JsonNode> getMainSearch(String query, int display, int start) {
 		
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -73,15 +71,29 @@ public class MainServiceImpl implements MainService{
 		
 		HttpEntity<String> entity = new HttpEntity<>(headers);
 		
-		String apiUrl = "https://openapi.naver.com/v1/search/news.json?query=" + query;	
+		String apiUrl = String.format(
+										"https://openapi.naver.com/v1/search/news.json?query=%s&display=%d&start=%d",
+										query, display, start +1
+			);
 		
-		ResponseEntity<JsonNode> response = restTemplate.exchange(
+
+		ResponseEntity<JsonNode> response =	 restTemplate.exchange(
 	                apiUrl,           // 요청 URL
 	                HttpMethod.GET,   // GET 방식
 	                entity,           // 헤더 포함 엔티티
-	                JsonNode.class      // 이 타입으로 변환해라
+	                JsonNode.class 	     // 이 타입으로 변환해라
 		);
-		return response;	
+		
+		JsonNode body = response.getBody();
+		
+		// total 제한 (예: 100개까지만)
+		if (body != null) {
+		    int total = body.get("total").asInt();
+		    if (total > 100) {
+		        ((ObjectNode) body).put("total", 100); // total 값 수정
+		    }
+		}
+		 return new ResponseEntity<>(body, response.getStatusCode());
 		
 	}
 

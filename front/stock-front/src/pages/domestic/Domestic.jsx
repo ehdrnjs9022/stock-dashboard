@@ -94,7 +94,7 @@ const Domestic = () => {
           </div>
           <div
             className={`sub ${
-              kospi?.[0]?.fluctuationsRatio ? 'positive' : 'negative'
+              kospi?.[0]?.fluctuationsRatio > 0 ? 'positive' : 'negative'
             }`}
           >
             등락률{kospi?.[0]?.fluctuationsRatio}%
