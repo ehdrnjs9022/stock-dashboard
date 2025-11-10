@@ -78,17 +78,19 @@ public class MainController {
 	
 	
 	@GetMapping("/search")
-	public ResponseEntity<ResponseData> getSearch(@RequestParam("query") String query){
+	public ResponseEntity<ResponseData> getSearch(@RequestParam("query") String query,
+												  @RequestParam(value="display",  defaultValue = "5" ) int display,
+												  @RequestParam(value="start",defaultValue = "1" ) int start) {
 		
 		
-		ResponseEntity<JsonNode> result = mainService.getMainSearch(query);
+		ResponseEntity<JsonNode> result = mainService.getMainSearch(query,display,start);
 		
 		ResponseData responseData = ResponseData.builder()
 												.code("A100")
 												.items(result)
 												.message("검색성공")
 												.build();
-		
+
 		return ResponseEntity.ok(responseData);
 	}
 	

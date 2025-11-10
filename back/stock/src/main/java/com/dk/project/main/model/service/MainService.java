@@ -14,7 +14,7 @@ public interface MainService {
 
 	List<MainDTO> getMainNew();
 	
-	ResponseEntity<JsonNode> getMainSearch(String query);
+	ResponseEntity<JsonNode> getMainSearch(String query, int display, int start);
 	
 	ResponseEntity<List<StockDTO>> getMainDomestic(List<StockDTO> codes);
 	

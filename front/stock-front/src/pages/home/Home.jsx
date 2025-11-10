@@ -240,11 +240,13 @@ const Home = () => {
                   <td>{s.stockName}</td>
                   <td>{s.industryCompareInfo?.[0]?.closePrice}</td>
                   <td
-                    className={
-                      s.industryCompareInfo?.[0]?.fluctuationsRatio >= 0
+                    className={`sub ${
+                      s.industryCompareInfo?.[0]?.fluctuationsRatio > 0
                         ? 'positive'
-                        : 'negative'
-                    }
+                        : s.indusryCompareInfo?.[0]?.fluctuationsRatio > 0
+                        ? 'negative'
+                        : '-'
+                    }`}
                   >
                     {s.industryCompareInfo?.[0]?.fluctuationsRatio}%
                   </td>
@@ -274,7 +276,15 @@ const Home = () => {
                     <tr key={idx}>
                       <td>{o['01. symbol'] || o.symbol || '-'}</td>
                       <td>{o['05. price'] || o.price || '-'}</td>
-                      <td>
+                      <td
+                        className={`sub ${
+                          o['05. price'] > 0
+                            ? 'positive'
+                            : o['05. price'] < 0
+                            ? 'negative'
+                            : '_'
+                        }`}
+                      >
                         {Number(o['10. change percent']).toFixed(2) || '-'}
                       </td>
                     </tr>

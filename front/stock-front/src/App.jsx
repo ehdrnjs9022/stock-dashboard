@@ -34,7 +34,6 @@ function App() {
           <Route path="/market/btc" element={<Btc />}></Route>
           <Route path="/market/eth" element={<Eth />}></Route>
         </Route>
-
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
         <Route path="/findId" element={<FindId />}></Route>
