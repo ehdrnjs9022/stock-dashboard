@@ -121,7 +121,7 @@ const Home = () => {
       .then((res) => {
         const btcData = res.data.items.find((c) => c.market === 'KRW-BTC');
         setBtc(btcData);
-        console.log(btcData);
+        // console.log(btcData);
       })
       .catch((err) => {
         console.log(err);
@@ -161,9 +161,9 @@ const Home = () => {
           <div className="value">
             {nasdaq
               ? Number(
-                  (nasdaq?.chart?.result[0]?.indicators?.quote[0]?.close[22]).toFixed(
-                    2
-                  )
+                  nasdaq?.chart?.result[0]?.indicators?.quote[0]?.close
+                    .at(-1)
+                    .toFixed(2)
                 ).toLocaleString()
               : '_'}
           </div>
@@ -243,7 +243,7 @@ const Home = () => {
                     className={`sub ${
                       s.industryCompareInfo?.[0]?.fluctuationsRatio > 0
                         ? 'positive'
-                        : s.indusryCompareInfo?.[0]?.fluctuationsRatio > 0
+                        : s.industryCompareInfo?.[0]?.fluctuationsRatio < 0
                         ? 'negative'
                         : '-'
                     }`}
@@ -278,14 +278,16 @@ const Home = () => {
                       <td>{o['05. price'] || o.price || '-'}</td>
                       <td
                         className={`sub ${
-                          o['05. price'] > 0
+                          parseFloat(o['10. change percent']) > 0
                             ? 'positive'
-                            : o['05. price'] < 0
+                            : parseFloat(o['10. change percent']) < 0
                             ? 'negative'
                             : '_'
                         }`}
                       >
-                        {Number(o['10. change percent']).toFixed(2) || '-'}
+                        {o['10. change percent']
+                          ? parseFloat(o['10. change percent']).toFixed(2) + '%'
+                          : '-'}
                       </td>
                     </tr>
                   ))

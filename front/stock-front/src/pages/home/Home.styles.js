@@ -171,10 +171,6 @@ export const MainCenter = styled(Card)`
       z-index: 1;
     }
 
-    td {
-      color: #333;
-    }
-
     .sub {
       color: #333;
       font-weight: 600;
