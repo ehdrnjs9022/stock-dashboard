@@ -14,3 +14,6 @@ naver:
 
 caffeine:
   spec: expireAfterWrite=1h   # ✅ 캐시 만료시간 설정
+
+jwt:
+  secret: zK9bW9o2h9wV+y2hRXnWLR8iTrWkB13vghH4L1exbws=
