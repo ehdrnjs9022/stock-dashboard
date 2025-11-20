@@ -1,6 +1,5 @@
 package com.dk.project.user.model.dto;
 
-import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +19,6 @@ public class UserDTO {
 	private String userId;
 	private String password;
 	private String email;
-	private Date createDate;	
-	private String  role;
+	private String role;
 	
 }

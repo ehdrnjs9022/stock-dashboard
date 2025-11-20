@@ -5,32 +5,30 @@
   
   <mapper namespace="com.dk.project.user.model.dao.UserMapper">
   
-  	<select id="signUp" 
+  	<insert id="signUp" 
   			parameterType="com.dk.project.user.model.dto.UserDTO"
   	>
   	 
   	 	INSERT INTO TB_USER(
-			USER_NO,
 			REALNAME,
 			NICKNAME,
-			USERID,
+			USER_ID,
 			PASSWORD,
 			EMAIL,
 			CREATEDATE,
 			ROLE
 		)
 		VALUES (
-			#{userNo},
 			#{realName},
 			#{nickName},
 			#{userId},
 			#{password},
 			#{email},
-			#{createDate},
-			#{role}
+			SYSDATE,
+			'ROLE_USER'
 		)
-  	 		
-  	</select>
+  	 			
+  	</insert>
   
   
   
