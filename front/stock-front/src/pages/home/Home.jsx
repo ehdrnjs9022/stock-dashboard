@@ -121,7 +121,7 @@ const Home = () => {
       .then((res) => {
         const btcData = res.data.items.find((c) => c.market === 'KRW-BTC');
         setBtc(btcData);
-        // console.log(btcData);
+        console.log(btcData);
       })
       .catch((err) => {
         console.log(err);

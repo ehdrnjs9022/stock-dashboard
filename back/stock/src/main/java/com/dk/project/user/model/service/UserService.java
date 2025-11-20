@@ -5,6 +5,6 @@ import com.dk.project.user.model.dto.UserDTO;
 public interface UserService {
 
 	
-	UserDTO signUp(UserDTO userDTO);
+	void signUp(UserDTO userDTO);
 	
 }

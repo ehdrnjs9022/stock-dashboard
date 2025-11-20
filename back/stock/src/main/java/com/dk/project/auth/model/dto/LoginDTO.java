@@ -1,4 +1,4 @@
-package com.dk.project.auth.model.dao;
+package com.dk.project.auth.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

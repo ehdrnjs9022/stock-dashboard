@@ -5,15 +5,29 @@ spring:
     username: system
     password: 12345
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dkemailsend@gmail.com
+    password: "muuw ffke unoq zhko"
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
   cache:
-    type: caffeine   # ✅ 캐시 저장소로 Caffeine 사용 지정
+    type: caffeine
 
 naver:
   client-id: 7iFtt_F85UDT1CbXwKHr
   client-secret: otX6iaNvRN
 
 caffeine:
-  spec: expireAfterWrite=1h   # ✅ 캐시 만료시간 설정
+  spec: expireAfterWrite=1h
 
 jwt:
   secret: zK9bW9o2h9wV+y2hRXnWLR8iTrWkB13vghH4L1exbws=
+
+
+
+mybatis:
+  mapper-locations: classpath*:mappers/**/*.xml
