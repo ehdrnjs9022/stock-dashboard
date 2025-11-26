@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.dk.project.token.model.dao.TokenMapper">
+  	
+  	<delete id="deleteRefreshToken"
+  			parameterType="com.dk.project.token.model.dto.RefreshTokenDTO">
+  	
+  		DELETE 
+  		  FROM
+  		  		TB_TOKEN
+  		 WHERE
+  		 		TOKEN = #{refreshToken}
+  	</delete>
+  	
+  	<insert id="saveRefreshToken">
+  	
+  		INSERT INTO TB_TOKEN(
+			USER_NO,
+			TOKEN,
+			EXPIRE_DATE
+			
+		)
+		VALUES(
+			#{userNo},
+			#{refreshToken},
+			SYSDATE + 14 
+		)
+  	
+  	</insert>
+  </mapper>

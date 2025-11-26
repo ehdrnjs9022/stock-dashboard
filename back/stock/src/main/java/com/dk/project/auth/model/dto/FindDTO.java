@@ -7,10 +7,13 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class LoginDTO {
+public class FindDTO {
 
 	
+	private String email;
+	private String realName;
 	private String userId;
 	private String password;
+	
 	
 }

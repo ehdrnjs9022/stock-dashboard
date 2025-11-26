@@ -1,6 +1,5 @@
 import {
   HeaderWrap,
-  TopNotice,
   MainHeader,
   NavBar,
   Right,
@@ -13,10 +12,12 @@ import {
   ActionButton,
 } from './Header.styles';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 const Header = () => {
   const navi = useNavigate();
+  const { auth, logout } = useContext(AuthContext);
   const [search, setSearch] = useState('');
 
   const handleSearch = (e) => {
@@ -43,7 +44,19 @@ const Header = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </SearchForm>
-            <ActionButton onClick={() => navi('/login')}>로그인</ActionButton>
+            <button onClick={() => navi('/mypage')}>마이페이지</button>
+            {auth?.accessToken ? (
+              <ActionButton
+                onClick={() => {
+                  logout();
+                  navi('/');
+                }}
+              >
+                로그아웃
+              </ActionButton>
+            ) : (
+              <ActionButton onClick={() => navi('/login')}>로그인</ActionButton>
+            )}
           </Right>
         </MainHeader>
 

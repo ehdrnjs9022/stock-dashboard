@@ -5,13 +5,17 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DkUserDetails implements UserDetails {
 
 	private Long userNo;

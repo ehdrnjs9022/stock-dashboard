@@ -22,11 +22,11 @@ public class UserDetailsServiceImpl implements  UserDetailsService {
 	private final AuthMapper authMapper;
 
 	@Override
-	public UserDetails loadUserByUsername(String userNo) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		
-		UserDTO userDTO = authMapper.loadUserByUserId(userNo);
+		UserDTO userDTO = authMapper.loadUserByUserId(userId);
 		
-		if(userDTO.getUserNo() == null) {
+		if(userDTO.getUserId() == null) {
 			 throw new UsernameNotFoundException("해당 유저를 찾을 수 없습니다.");
 			
 		}

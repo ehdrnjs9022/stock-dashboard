@@ -16,6 +16,9 @@ import Kosdaq from './pages/market/Kosdaq';
 import DowJones from './pages/market/DowJones';
 import Sp500 from './pages/market/Sp500';
 import Eth from './pages/market/Eth';
+import Mypage from './pages/mypage/Mypage';
+import Delete from './pages/myPage/Delete';
+import Password from './pages/myPage/Password';
 function App() {
   return (
     <>
@@ -26,6 +29,9 @@ function App() {
           <Route path="/domestic" element={<Domestic />}></Route>
           <Route path="/overseas" element={<OverSeas />}></Route>
           <Route path="/crypto" element={<Crypto />}></Route>
+          <Route path="/mypage" element={<Mypage />}></Route>
+          <Route path="/mypage/delete" element={<Delete />}></Route>
+          <Route path="/mypage/password" element={<Password />}></Route>
           <Route path="/market/kospi" element={<Kospi />}></Route>
           <Route path="/market/Kosdaq" element={<Kosdaq />}></Route>
           <Route path="/market/nasdaq" element={<Nasdaq />}></Route>

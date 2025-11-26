@@ -9,7 +9,7 @@ public interface TokenService {
 	String getRefreshToken(Long userNo);
 	
 	
-	
+	void saveRefreshToken(Long userNo, String refreshToken);
 	
 	
 }
