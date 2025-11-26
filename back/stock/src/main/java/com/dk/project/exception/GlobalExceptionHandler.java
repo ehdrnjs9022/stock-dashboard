@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.dk.project.exception.exceptions.EmailInfoNotFoundException;
+import com.dk.project.exception.exceptions.FindIdCustomException;
+import com.dk.project.exception.exceptions.FindPwCustomException;
+import com.dk.project.exception.exceptions.InvalidPasswordException;
 import com.dk.project.exception.exceptions.LoginFailedException;
 
 @RestControllerAdvice
@@ -22,6 +25,22 @@ public class GlobalExceptionHandler  {
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 	}
+	@ExceptionHandler
+	public ResponseEntity<?> handlerFindIdCustomException(FindIdCustomException e){
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
+	@ExceptionHandler
+	public ResponseEntity<?> handlerFindPwCustomException(FindPwCustomException e){
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
+	@ExceptionHandler
+	public ResponseEntity<?> handleInvalidPasswordException(InvalidPasswordException e){
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
+	
 	
 	
 }

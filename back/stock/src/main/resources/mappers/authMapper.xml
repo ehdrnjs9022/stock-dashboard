@@ -19,7 +19,7 @@
 	  	 FROM
 	  			TB_USER
 	  	 WHERE
-	  			USER_NO = #{userNo}
+	  			USER_ID = #{userId}
  	
 	</select>
 	
@@ -57,6 +57,65 @@
 	
 	</select>
 	
+	<select id="findIdCheck"
+			parameterType="com.dk.project.auth.model.dto.FindDTO"
+			resultType="com.dk.project.auth.model.dto.FindDTO">
+				
+		SELECT
+				USER_ID userId
+		  FROM
+		  		TB_USER
+		 WHERE
+		 		REALNAME = #{realName}
+		   AND
+		   		EMAIL = #{email}
+		   		
+	</select>
+	<select id="findPwCheck"
+			parameterType="com.dk.project.auth.model.dto.FindDTO"
+			resultType="com.dk.project.auth.model.dto.FindDTO">
+			
+		SELECT
+				USER_ID userId,
+				EMAIL email
+		  FROM
+		  		TB_USER
+		 WHERE
+		 		EMAIL = #{email}
+		   AND
+		   		USER_ID = #{userId}
+		   		
+	</select>
 	
+	<update id="tempPasswordInsert"	
+			parameterType="map">
+			
+		UPDATE 
+				TB_USER
+		   SET
+				PASSWORD = #{encodedTempPassword}
+		WHERE
+				USER_ID = #{userId}
+				
+	</update>
+	
+	<update id="changePassword"
+			parameterType="map">
+	
+	
+		UPDATE
+				TB_USER
+		   SET
+				PASSOWRD = #{newPassword}
+		WHERE
+				USER_NO = #{userNo}
+	
+	
+	</update>
+	
+ 
+ 	<delete id="deleteUser">
+ 
+ 	</delete>
  
  </mapper>

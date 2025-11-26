@@ -18,6 +18,14 @@ public class EmailUtil {
 	        
 	        mailSender.send(message);
 	    }
+	 public void sendMailId(SimpleMailMessage messageId) {
+		 
+		 mailSender.send(messageId);
+	 }
+	 public void sendMailPw(SimpleMailMessage messagePw) {
+		 
+		 mailSender.send(messagePw);
+	 }
 	 
 	 
 	 
