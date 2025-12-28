@@ -48,9 +48,7 @@ export const AuthProvider = ({ children }) => {
         .post(`http://localhost:8080/api/logout`, {
           refreshToken: refreshToken,
         })
-        .then((res) => {
-          alert(res.data.message);
-        })
+
         .catch((err) => {
           console.log(err, 'refreshToken 에러');
         });

@@ -25,8 +25,7 @@ public class UserDetailsServiceImpl implements  UserDetailsService {
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		
 		UserDTO userDTO = authMapper.loadUserByUserId(userId);
-		
-		if(userDTO.getUserId() == null) {
+		if(userDTO == null) {
 			 throw new UsernameNotFoundException("해당 유저를 찾을 수 없습니다.");
 			
 		}

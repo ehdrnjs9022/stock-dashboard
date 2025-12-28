@@ -2,7 +2,6 @@ package com.dk.project.auth.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +16,8 @@ import com.dk.project.auth.model.dto.LoginResponseDTO;
 import com.dk.project.auth.model.service.AuthService;
 import com.dk.project.auth.model.vo.DkUserDetails;
 import com.dk.project.token.model.dto.RefreshTokenDTO;
+import com.dk.project.token.model.dto.ReissueResponseDTO;
+import com.dk.project.token.model.service.TokenService;
 import com.dk.project.util.model.dto.ResponseData;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
 		private final AuthService authService;
+		private final TokenService tokenService;
 	
 	@PostMapping("/login")
 	public ResponseEntity<ResponseData> login(@RequestBody LoginDTO loginDTO) {
@@ -45,7 +47,7 @@ public class AuthController {
 	@PostMapping("/logout")
 	public ResponseEntity<ResponseData> logout(@RequestBody RefreshTokenDTO refreshTokenDTO) {
 		
-		 authService.logout(refreshTokenDTO);
+		 tokenService.logout(refreshTokenDTO);
 		
 		ResponseData responseData = ResponseData.builder()
 				.code("A100")	
@@ -110,7 +112,6 @@ public class AuthController {
 	public ResponseEntity<ResponseData> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO,
 													   @AuthenticationPrincipal DkUserDetails user) {
 		
-		
 		authService.changePassword(changePasswordDTO, user);
 		
 		
@@ -122,11 +123,11 @@ public class AuthController {
 		
 		return ResponseEntity.ok(responseData);
 	}
-	@PutMapping("/delete")
+	@PostMapping("/delete")
 	public ResponseEntity<ResponseData> deleteUser(@RequestBody ChangePasswordDTO changePasswordDTO,
 			@AuthenticationPrincipal DkUserDetails user) {
 		
-		
+		System.out.println("컨트롤러로 넘어오나@@@" + user);
 		authService.deleteUser(changePasswordDTO, user);
 		
 		
@@ -140,7 +141,22 @@ public class AuthController {
 	}
 	
 	
-	
+	@PostMapping("/reissue")
+	public ResponseEntity<ResponseData> reissueToken(@RequestBody RefreshTokenDTO refreshTokenDTO){
+		
+		ReissueResponseDTO  result = tokenService.reissueToken(refreshTokenDTO);
+		
+		
+		ResponseData responseData = ResponseData.builder()
+				.code("A100")
+				.message("토큰 재발급")
+				.items(result)
+				.build();
+		
+		
+		return ResponseEntity.ok(responseData);
+		
+	}
 	
 	
 	

@@ -28,7 +28,6 @@ import com.dk.project.exception.exceptions.FindPwCustomException;
 import com.dk.project.exception.exceptions.InvalidPasswordException;
 import com.dk.project.exception.exceptions.LoginFailedException;
 import com.dk.project.token.model.dao.TokenMapper;
-import com.dk.project.token.model.dto.RefreshTokenDTO;
 import com.dk.project.token.model.service.TokenService;
 
 import lombok.RequiredArgsConstructor;
@@ -42,7 +41,6 @@ public class AuthServiceImpl implements AuthService {
 	private final AuthMapper authMapper;
 	private final EmailUtil emailUtil;
 	private final BCryptPasswordEncoder passwordEncoder;
-	private final TokenMapper tokenMapper;
 
 	@Override
 	public LoginResponseDTO login(LoginDTO loginDTO) {
@@ -63,8 +61,8 @@ public class AuthServiceImpl implements AuthService {
 		DkUserDetails dkUserDetails = (DkUserDetails) authentication.getPrincipal();
 		
 		
-		String accessToken = tokenService.getAccessToken(dkUserDetails.getUserNo());
-		String refreshToken = tokenService.getRefreshToken(dkUserDetails.getUserNo());
+		String accessToken = tokenService.getAccessToken(dkUserDetails.getUsername());
+		String refreshToken = tokenService.getRefreshToken(dkUserDetails.getUserNo(),dkUserDetails.getUsername());
 		
 		tokenService.saveRefreshToken(dkUserDetails.getUserNo(),refreshToken);
 		
@@ -81,14 +79,7 @@ public class AuthServiceImpl implements AuthService {
 	}
 	
 
-	@Override
-	public void logout(RefreshTokenDTO refreshTokenDTO) {
-	
-		
-		tokenMapper.deleteRefreshToken(refreshTokenDTO);		
-	
-	
-	}
+
 	
 	
 	
@@ -212,11 +203,11 @@ public class AuthServiceImpl implements AuthService {
 		
 		if(!passwordEncoder.matches(changePasswordDTO.getPassword(),user.getPassword())) {
 			throw new InvalidPasswordException("현재 비밀번호가 일치하지 않습니다.");
-		}
-	
-		authMapper.deleteUser(user);
-	
-	
+		}	
+		Long userNo = user.getUserNo();
+		authMapper.deleteUser(userNo);
+		
+		
 	}
 
 

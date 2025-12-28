@@ -2,17 +2,22 @@ package com.dk.project.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.dk.project.security.filter.JwtFilter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,18 +25,56 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfigure {
+	
+	private final JwtFilter jwtFilter;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http
+	   
+		return http
 	        .csrf(AbstractHttpConfigurer::disable)
 	        .formLogin(AbstractHttpConfigurer::disable)
 	        .httpBasic(AbstractHttpConfigurer::disable)
 	        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-	        .authorizeHttpRequests(auth -> auth
-	            .anyRequest().permitAll() // 모든 요청 허용
-	        );
-	    return http.build();
+	        .authorizeHttpRequests(request -> {
+				   request.requestMatchers("/admin/**").hasRole("ADMIN");
+				  
+				   request.requestMatchers(HttpMethod.POST,
+							 "/api/delete",
+						   "/api/board/write",
+						   "/api/board/like/**",
+						   "/api/board/insertcomment/**"
+							 ).authenticated();
+				   request.requestMatchers(HttpMethod.POST,
+						   "/api/find-id",
+						   "/api/find-pw",
+						   "/api/verifyCode",	
+						   "/api/email-send",
+						   "/api/logout",
+						   "/api/login",
+						   "/api/signup",
+						   "/api/reissue"
+						   ).permitAll();
+				  
+				   request.requestMatchers(HttpMethod.PUT, 
+							  "/api/password",
+							  "/api/board/update/**"
+						   ).authenticated();
+				   
+				  
+				   
+				   request.requestMatchers(HttpMethod.GET,
+						   "/api/**"	
+							 ).permitAll();
+				  
+				   request.requestMatchers(HttpMethod.DELETE, 
+						   "/api/board/delete/**").authenticated();
+				   
+            })
+            
+           .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			   .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+			   .build();
 	}
 	
 	@Bean
@@ -51,7 +94,7 @@ public class SecurityConfigure {
 	        CorsConfiguration configuration = new CorsConfiguration();
 	        configuration.addAllowedOrigin("http://localhost:5173"); 
 	        configuration.addAllowedMethod("*"); 
-	        configuration.addAllowedHeader("*"); 
+	        configuration.addAllowedHeader("*");
 	        configuration.setAllowCredentials(true);
 
 	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

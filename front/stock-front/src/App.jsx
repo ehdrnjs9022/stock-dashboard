@@ -19,6 +19,10 @@ import Eth from './pages/market/Eth';
 import Mypage from './pages/mypage/Mypage';
 import Delete from './pages/myPage/Delete';
 import Password from './pages/myPage/Password';
+import Board from './pages/board/Board';
+import BoardDetails from './pages/board/BoardDetails';
+import BoardWrite from './pages/board/boardWrite';
+import BoardUpdate from './pages/board/BoardUpdate';
 function App() {
   return (
     <>
@@ -28,6 +32,14 @@ function App() {
           <Route path="/search" element={<Search />}></Route>
           <Route path="/domestic" element={<Domestic />}></Route>
           <Route path="/overseas" element={<OverSeas />}></Route>
+          <Route path="/board" element={<Board />}></Route>
+          <Route path="/board/write" element={<BoardWrite />}></Route>
+          <Route path="/board/:boardNo" element={<BoardDetails />}></Route>
+          <Route
+            path="/board/update/:boardNo"
+            element={<BoardUpdate />}
+          ></Route>
+
           <Route path="/crypto" element={<Crypto />}></Route>
           <Route path="/mypage" element={<Mypage />}></Route>
           <Route path="/mypage/delete" element={<Delete />}></Route>

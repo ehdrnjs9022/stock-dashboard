@@ -15,6 +15,7 @@
   		 		TOKEN = #{refreshToken}
   	</delete>
   	
+  	
   	<insert id="saveRefreshToken">
   	
   		INSERT INTO TB_TOKEN(
@@ -30,4 +31,48 @@
 		)
   	
   	</insert>
+  	
+	 <delete id="deleteReissueRefreshToken" parameterType="long">
+	    DELETE 
+	    FROM
+	     		TB_TOKEN
+	    WHERE 
+	    		USER_NO = #{userNo}
+	</delete>
+
+  	
+  	
+	<select id="refreshTokenCheck"
+			parameterType="string"
+			resultType="com.dk.project.token.model.dto.RefreshTokenDTO">
+		
+		SELECT
+				USER_NO userNo, 
+				TOKEN refreshToken,
+				EXPIRE_DATE expiration
+		FROM
+				TB_TOKEN
+		WHERE
+				TOKEN = #{refreshToken}		
+
+</select>
+   
+   <insert id="insertReissueRefreshToken"
+   		   parameterType="com.dk.project.token.model.dto.RefreshTokenDTO">
+   		   
+   		 INSERT INTO TB_TOKEN (
+			USER_NO,
+			TOKEN,
+			EXPIRE_DATE
+		 )
+		 VALUES(
+			#{userNo},
+			#{refreshToken},
+			SYSDATE + 14 
+		 )
+   
+	</insert>
+
+ 	
+ 
   </mapper>
