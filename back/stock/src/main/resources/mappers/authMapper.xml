@@ -106,7 +106,7 @@
 		UPDATE
 				TB_USER
 		   SET
-				PASSOWRD = #{newPassword}
+				PASSWORD = #{newPassword}
 		WHERE
 				USER_NO = #{userNo}
 	
@@ -114,8 +114,19 @@
 	</update>
 	
  
- 	<delete id="deleteUser">
+ 	<delete id="deleteUser"
+ 			parameterType="long">
+ 			
+ 		DELETE
+ 		FROM
+ 				TB_USER
+ 		WHERE
+ 				
+ 				USER_NO = #{userNo}	
  
  	</delete>
+ 	
+ 	
+ 	
  
  </mapper>

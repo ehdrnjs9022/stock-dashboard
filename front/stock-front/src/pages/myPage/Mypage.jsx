@@ -1,4 +1,3 @@
-// Mypage.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -59,16 +58,14 @@ const Mypage = () => {
       {/* 프로필 카드 */}
       <ProfileCard>
         <ProfileLeft>
-          <ProfileImage
-            src={previewImage || 'https://via.placeholder.com/120?text=Profile'}
-          />
+          <ProfileImage />
 
           <ProfileInfo>
             <ProfileNameRow>
               <ProfileName>닉네임</ProfileName>
             </ProfileNameRow>
 
-            <ProfileEmail>📧 example@naver.com</ProfileEmail>
+            <ProfileEmail>📧 example@ naver.com</ProfileEmail>
             <ProfileRealName>🙋 홍길동</ProfileRealName>
           </ProfileInfo>
         </ProfileLeft>

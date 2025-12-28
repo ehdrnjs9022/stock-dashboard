@@ -1,5 +1,7 @@
 package com.dk.project.exception;
 
+import java.nio.file.AccessDeniedException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,6 +41,11 @@ public class GlobalExceptionHandler  {
 	public ResponseEntity<?> handleInvalidPasswordException(InvalidPasswordException e){
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
+	@ExceptionHandler
+	public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException e){
+		
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 	}
 	
 	

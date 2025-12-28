@@ -6,14 +6,12 @@ import com.dk.project.auth.model.dto.FindDTO;
 import com.dk.project.auth.model.dto.LoginDTO;
 import com.dk.project.auth.model.dto.LoginResponseDTO;
 import com.dk.project.auth.model.vo.DkUserDetails;
-import com.dk.project.token.model.dto.RefreshTokenDTO;
 
 public interface AuthService {
 
 	
 	LoginResponseDTO login(LoginDTO loginDTO);
 	
-	void logout(RefreshTokenDTO refreshTokenDTO);
 
 	void emailSend(EmailDTO emailDTO);
 	

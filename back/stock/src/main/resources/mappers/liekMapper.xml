@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+   <mapper namespace="com.dk.project.board.model.dao.LikeMapper">
+  
+  	
+  <select id="likeExists"
+  		  parameterType="Long"
+  		  resultType="int">
+  
+  			SELECT	
+  					COUNT(*)
+  			  FROM	
+  					TB_BOARD_LIKE
+  			WHERE
+  					USER_NO = #{userNo}
+  			AND
+  					BOARD_NO = #{boardNo}
+  
+  </select>
+  
+  <insert id="likeInsert">
+  
+  			INSERT INTO TB_BOARD_LIKE(
+				USER_NO,
+				BOARD_NO
+			)VALUES(
+				#{userNo},
+				#{boardNo}
+			)
+  
+  </insert>
+  
+  
+  <delete id="likeDelete"
+  		  parameterType="Long">
+  		  
+  		  	DELETE 
+  		  			TB_BOARD_LIKE
+  		  	WHERE
+  		  			BOARD_NO = #{boardNo}
+  		  	AND
+  		  			USER_NO  = #{userNo}		
+  		  	
+  </delete>
+  
+  
+  
+  
+  
+  
+  
+  
+  </mapper>

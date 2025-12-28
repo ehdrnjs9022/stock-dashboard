@@ -44,7 +44,13 @@ const Header = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </SearchForm>
-            <button onClick={() => navi('/mypage')}>마이페이지</button>
+
+            {auth?.accessToken ? (
+              <ActionButton onClick={() => navi('/mypage')}>
+                마이페이지
+              </ActionButton>
+            ) : null}
+
             {auth?.accessToken ? (
               <ActionButton
                 onClick={() => {
@@ -66,6 +72,7 @@ const Header = () => {
           <MenuButton onClick={() => navi('/domestic')}>국내증시</MenuButton>
           <MenuButton onClick={() => navi('/overseas')}>해외증시</MenuButton>
           <MenuButton onClick={() => navi('/crypto')}>가상화폐</MenuButton>
+          <MenuButton onClick={() => navi('/board')}>게시판</MenuButton>
         </NavBar>
       </Container>
     </HeaderWrap>
