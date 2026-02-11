@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.dk.project.exception.exceptions.CommentAccessDeniedException;
 import com.dk.project.exception.exceptions.EmailInfoNotFoundException;
 import com.dk.project.exception.exceptions.FindIdCustomException;
 import com.dk.project.exception.exceptions.FindPwCustomException;
@@ -46,6 +47,12 @@ public class GlobalExceptionHandler  {
 	public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException e){
 		
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<?> handleCommentAccessDeniedException(CommentAccessDeniedException e){
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 	}
 	
 	

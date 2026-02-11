@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const DetailWrap = styled.div`
   max-width: 820px;
@@ -124,7 +124,8 @@ export const CommentList = styled.div`
 `;
 
 export const CommentItem = styled.div`
-  padding: 14px 10px;
+  position: relative;
+  padding: 14px 10px 16px;
   border-bottom: 1px solid #eee;
 `;
 
@@ -142,12 +143,13 @@ export const CommentText = styled.div`
 export const ReplyButton = styled.button`
   background: none;
   border: none;
-  color: #5b77f2;
+  color: #999;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
+  padding: 2px;
 
   &:hover {
-    text-decoration: underline;
+    color: #5b77f2;
   }
 `;
 
@@ -163,10 +165,13 @@ export const ReplyInput = styled.textarea`
 `;
 
 export const ActionButtons = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
   display: flex;
-  gap: 10px;
-  margin-top: 6px;
+  gap: 6px;
 `;
+
 export const LikeButton = styled.button`
   padding: 3px 10px;
   background: #ffe5e5;

@@ -26,9 +26,15 @@ public interface BoardService {
 	void updateDetails(BoardDTO boardDTO);
 	void deleteDetails(Long boardNo, Long userNo);
 	
-	void insertCommnet(CommentDTO commentDTO);
+	void insertComment(CommentDTO commentDTO);
 	
-	List<CommentDTO> selectComment(Long userNo, Long boardNo);
+	List<CommentDTO> selectComment(Long boardNo);
+	
+	
+	void updateComment(CommentDTO commentDTO);
+	
+	void deleteComment(Long commentNo, Long userNo);
+	
 	
 	
 }

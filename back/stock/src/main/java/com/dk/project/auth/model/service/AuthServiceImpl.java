@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dk.project.auth.model.dao.AuthMapper;
 import com.dk.project.auth.model.dto.ChangePasswordDTO;
@@ -197,6 +198,7 @@ public class AuthServiceImpl implements AuthService {
 		
 	}
 
+	@Transactional
 	@Override
 	public void deleteUser(ChangePasswordDTO changePasswordDTO, DkUserDetails user) {
 		
@@ -205,16 +207,11 @@ public class AuthServiceImpl implements AuthService {
 			throw new InvalidPasswordException("현재 비밀번호가 일치하지 않습니다.");
 		}	
 		Long userNo = user.getUserNo();
+		String email = user.getEmail();
 		authMapper.deleteUser(userNo);
-		
+		authMapper.deleteEmail(email);
 		
 	}
-
-
-
-
-
-
 
 
 	

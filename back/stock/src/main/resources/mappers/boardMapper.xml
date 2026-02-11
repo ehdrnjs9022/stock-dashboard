@@ -173,13 +173,14 @@
   					BOARD_NO = #{boardNo}	
   </delete>
   
-  <insert id="insertCommnet"
+  <insert id="insertComment"
   		  parameterType="com.dk.project.board.model.dto.CommentDTO">
   
   			INSERT INTO TB_COMMENT(
 				
 				BOARD_NO,
 				USER_NO,
+				NICKNAME,
 				CONTENT,
 				PARENT_NO
 				
@@ -187,8 +188,9 @@
 				
 				#{boardNo},
 				#{userNo},
+				#{nickName},
 				#{content},
-				#{parentCommentNo}
+				#{parentCommentNo,jdbcType=NUMERIC}
 			)
   
   </insert>
@@ -199,8 +201,8 @@
   			SELECT
   					C.COMMENT_NO commentNo,
   					C.BOARD_NO boardNo,
-  					C.USER_NO userNo,
   					U.NICKNAME nickName,
+  					C.CONTENT content,
   					C.PARENT_NO parentCommentNo,
   					C.CREATE_DATE createDate
   					
@@ -213,6 +215,31 @@
   			
   </select>
   
+  <update id="updateComment"
+  		  parameterType="com.dk.project.board.model.dto.CommentDTO">
+  
+  			UPDATE
+  					TB_COMMENT
+  			SET
+  					CONTENT = #{content}
+  			WHERE
+  					COMMENT_NO = #{commentNo}	
+			AND
+					USER_NO = #{userNo}  		
+  
+  </update>
+  
+  <delete id="deleteComment">
+  		  
+  		DELETE
+  		FROM
+  				TB_COMMENT
+  		WHERE
+  				COMMENT_NO = #{commentNo}
+  		AND
+  				USER_NO = #{userNo}			
+  	
+  </delete>
   
   
   </mapper>

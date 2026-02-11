@@ -12,6 +12,7 @@ import com.dk.project.board.model.dto.BoardWriteDTO;
 import com.dk.project.board.model.dto.CommentDTO;
 import com.dk.project.board.model.dto.LikeResponseDTO;
 import com.dk.project.exception.exceptions.AccessDeniedException;
+import com.dk.project.exception.exceptions.CommentAccessDeniedException;
 
 import lombok.AllArgsConstructor;
 
@@ -103,21 +104,42 @@ public class BoardServceImpl implements BoardService {
 	}
 
 	@Override
-	public void insertCommnet(CommentDTO commentDTO) {
+	public void insertComment(CommentDTO commentDTO) {
 		
-		boardMapper.insertCommnet(commentDTO);
+		 
+		boardMapper.insertComment(commentDTO);	
 		
 	}
 
 	@Override
-	public List<CommentDTO> selectComment(Long userNo, Long boardNo) {
+	public List<CommentDTO> selectComment(Long boardNo) {
 		
-		List<CommentDTO>  result =boardMapper.selectComment(userNo, boardNo);
+		List<CommentDTO> result =boardMapper.selectComment(boardNo);
 		
 		return result;
 	}
 
-	
+	@Override
+	public void updateComment(CommentDTO commentDTO) {
+		
+		int result = boardMapper.updateComment(commentDTO);
+		
+		if(result == 0 ) {
+			throw new CommentAccessDeniedException("수정 또는 삭제할 수 없는 댓글입니다.");
+		}
+		
+	}
+
+	@Override
+	public void deleteComment(Long commentNo,Long userNo) {
+		
+		int result = boardMapper.deleteComment(commentNo, userNo);
+		
+		if(result == 0) {
+			throw new CommentAccessDeniedException("수정 또는 삭제할 수 없는 댓글입니다.");
+		}
+		
+	}
 
 	
 

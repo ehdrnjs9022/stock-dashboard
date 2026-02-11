@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
+@ToString
 public class CommentDTO {
 
 	private Long commentNo;
