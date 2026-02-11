@@ -126,7 +126,16 @@
  
  	</delete>
  	
- 	
+ 	<delete id="deleteEmail"
+ 				parameterType="string">
+ 					
+ 		DELETE
+ 		FROM	
+ 				TB_EMAIL
+ 		WHERE
+ 				EMAIL = #{email}		
+ 					
+ 	</delete>
  	
  
  </mapper>

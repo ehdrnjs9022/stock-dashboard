@@ -96,6 +96,7 @@ public class AuthController {
 		
 		return ResponseEntity.ok(responseData);
 	}
+	
 	@PostMapping("/find-pw")
 	public ResponseEntity<ResponseData> findPw(@RequestBody FindDTO findDTO) {
 		
@@ -127,7 +128,6 @@ public class AuthController {
 	public ResponseEntity<ResponseData> deleteUser(@RequestBody ChangePasswordDTO changePasswordDTO,
 			@AuthenticationPrincipal DkUserDetails user) {
 		
-		System.out.println("컨트롤러로 넘어오나@@@" + user);
 		authService.deleteUser(changePasswordDTO, user);
 		
 		

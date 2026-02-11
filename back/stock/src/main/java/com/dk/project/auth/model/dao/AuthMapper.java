@@ -28,6 +28,5 @@ public interface AuthMapper {
 	void changePassword(Map<String,Object> newPaosswordInfo);
 	
 	void deleteUser(Long userNo);
-	
-	
+	void deleteEmail(String email);
 }

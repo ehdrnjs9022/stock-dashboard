@@ -1,9 +1,12 @@
+server:
+  port: 8080
 spring:
   datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:XE
+    url: jdbc:oracle:thin:@192.168.219.100:1521/XEPDB1
     username: system
-    password: 12345
+    password: 1234
+
+ 
 
   mail:
     host: smtp.gmail.com

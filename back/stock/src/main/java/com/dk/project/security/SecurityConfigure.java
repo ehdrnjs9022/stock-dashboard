@@ -43,7 +43,8 @@ public class SecurityConfigure {
 							 "/api/delete",
 						   "/api/board/write",
 						   "/api/board/like/**",
-						   "/api/board/insertcomment/**"
+						   "/api/board/insertComment/**",
+						   "/api/board/updateComment/**"
 							 ).authenticated();
 				   request.requestMatchers(HttpMethod.POST,
 						   "/api/find-id",
@@ -64,11 +65,13 @@ public class SecurityConfigure {
 				  
 				   
 				   request.requestMatchers(HttpMethod.GET,
-						   "/api/**"	
+						   "/api/**"
 							 ).permitAll();
 				  
 				   request.requestMatchers(HttpMethod.DELETE, 
-						   "/api/board/delete/**").authenticated();
+						   "/api/board/delete/**",
+						   "/api/board/deleteComment/**"
+						   ).authenticated();
 				   
             })
             
@@ -92,6 +95,7 @@ public class SecurityConfigure {
 	 @Bean
 	    public CorsConfigurationSource corsConfigurationSource() {
 	        CorsConfiguration configuration = new CorsConfiguration();
+	       
 	        configuration.addAllowedOrigin("http://localhost:5173"); 
 	        configuration.addAllowedMethod("*"); 
 	        configuration.addAllowedHeader("*");

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class BoardController {
 	
 	private final BoardService boardService;
@@ -140,12 +142,16 @@ public class BoardController {
 		
 		
 	}
-	@PostMapping("/board/insertcomment/{boardNo}")
+	@PostMapping("/board/insertComment/{boardNo}")
 	public ResponseEntity<ResponseData> insertCommnet(@AuthenticationPrincipal DkUserDetails user,
 													  @RequestBody CommentDTO commentDTO,
 													  @PathVariable("boardNo") Long boardNo){
-												
-		boardService.insertCommnet(commentDTO);
+		commentDTO.setUserNo(user.getUserNo());
+		commentDTO.setNickName(user.getNickName());
+		commentDTO.setBoardNo(boardNo);
+		
+		boardService.insertComment(commentDTO);
+
 		
 		ResponseData responseData = ResponseData.builder()
 				.code("A100")	
@@ -157,12 +163,10 @@ public class BoardController {
 		
 	}
 	@GetMapping("/board/selectComment/{boardNo}")
-	public ResponseEntity<ResponseData> selectComment(@AuthenticationPrincipal DkUserDetails user,
-			@PathVariable("boardNo") Long boardNo){
+	public ResponseEntity<ResponseData> selectComment(@PathVariable("boardNo") Long boardNo){
 		
-		Long userNo = user.getUserNo();
 		
-		List<CommentDTO> result  = boardService.selectComment(userNo,boardNo);
+		List<CommentDTO> result  = boardService.selectComment(boardNo);
 		
 		
 		ResponseData responseData = ResponseData.builder()
@@ -176,9 +180,49 @@ public class BoardController {
 		
 	}
 	
+	@PostMapping("/board/updateComment/{commentNo}")
+	public ResponseEntity<ResponseData> updateComment(@PathVariable("commentNo") Long commentNo,
+													  @RequestBody CommentDTO commentDTO,
+													  @AuthenticationPrincipal DkUserDetails user){
+		commentDTO.setCommentNo(commentNo);
+		commentDTO.setUserNo(user.getUserNo());
+		
+		
+		  boardService.updateComment(commentDTO);
+		
+		
+		ResponseData responseData = ResponseData.builder()
+				.code("A100")	
+				.message("댓글수정 성공")
+				.build();
+		
+		return ResponseEntity.ok(responseData);
+		
+		
+	}
+	
+	@DeleteMapping("/board/deleteComment/{commentNo}")
+	public ResponseEntity<ResponseData> deleteComment(@PathVariable("commentNo") Long commentNo,
+													  @AuthenticationPrincipal DkUserDetails user){
+		
+		
+		Long userNo = user.getUserNo();
+		
+		 boardService.deleteComment(commentNo,userNo);
+		
+		
+		ResponseData responseData = ResponseData.builder()
+				.code("A100")	
+				.message("댓글삭제 성공")
+				.build();
+		
+		return ResponseEntity.ok(responseData);
+		
+		
+	}
 	
 	
-	
+
 	
 	
 	

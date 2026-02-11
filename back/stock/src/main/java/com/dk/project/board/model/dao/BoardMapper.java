@@ -30,8 +30,12 @@ public interface BoardMapper {
 	void updateDetails(BoardDTO boardDTO);
 	void deleteDetails(Long boardNo);
 	
-	void insertCommnet(CommentDTO commentDTO);
-	List<CommentDTO> selectComment(@Param("userNo") Long userNo, @Param("boardNo") Long boardNo);
+	void insertComment(CommentDTO commentDTO);
+	List<CommentDTO> selectComment(@Param("boardNo") Long boardNo);
+	
+	int updateComment(CommentDTO commentDTO);
+	int deleteComment(@Param("commentNo") Long commentNo,@Param("userNo") Long userNo);
+	
 	
 	
 }

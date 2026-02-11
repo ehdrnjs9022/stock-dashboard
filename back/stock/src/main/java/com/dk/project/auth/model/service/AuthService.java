@@ -24,5 +24,5 @@ public interface AuthService {
 	void changePassword(ChangePasswordDTO changePasswordDTO, DkUserDetails user);
 	void deleteUser(ChangePasswordDTO changePasswordDTO, DkUserDetails user);
 
-
+	
 }
