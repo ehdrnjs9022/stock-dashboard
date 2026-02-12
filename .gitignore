@@ -24,10 +24,3 @@
 .DS_Store
 Thumbs.db
 
-/images/
-
-# 특정 확장자 제외
-*.png
-*.jpg
-*.jpeg
-*.gif
