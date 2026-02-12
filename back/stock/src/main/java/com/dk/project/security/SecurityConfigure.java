@@ -54,7 +54,9 @@ public class SecurityConfigure {
 						   "/api/logout",
 						   "/api/login",
 						   "/api/signup",
-						   "/api/reissue"
+						   "/api/reissue",
+						   "/api/domestic",
+						   "/api/domesticDetails"
 						   ).permitAll();
 				  
 				   request.requestMatchers(HttpMethod.PUT, 

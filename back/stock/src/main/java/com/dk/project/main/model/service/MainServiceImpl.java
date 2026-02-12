@@ -98,18 +98,19 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
-	public ResponseEntity<List<StockDTO>> getMainDomestic(List<StockDTO> codes) {
+	public List<StockDTO> getMainDomestic(List<StockDTO> codes) {
 		
 		
 		List<StockDTO> result = new ArrayList<>();
 		//response body DTO값이 다있음
 		for(StockDTO req : codes) {
 		ResponseEntity<StockDTO> response = restTemplate.exchange(
+				//"https://m.stock.naver.com/api/stock/{code}/integration",
 				"https://m.stock.naver.com/api/stock/{code}/integration",
 				   HttpMethod.GET,   
 	               null,           
 	               StockDTO.class,
-	               req.getItemCode() //반복돌린값을 바인딩해서찾기위함
+	               req.getItemCode() //ItemCode -> code로 치환
 	               
 		);
 		
@@ -117,7 +118,7 @@ public class MainServiceImpl implements MainService{
 		}
 			
 	
-		return ResponseEntity.ok(result);
+		return result;
 	}
 
 	@Override
@@ -150,25 +151,7 @@ public class MainServiceImpl implements MainService{
 
 	
 	
-	@Override
-	public ResponseEntity<List<StockDTO>> getMainDomesticDetails(List<StockDTO> codes) {
-		List<StockDTO> result = new ArrayList<>();
-		for(StockDTO req : codes) {
-		ResponseEntity<StockDTO> response = restTemplate.exchange(
-				"https://m.stock.naver.com/api/stock/{code}/integration",
-				   HttpMethod.GET,   
-	               null,           
-	               StockDTO.class,
-	               req.getItemCode() 
-	               
-		);
-		
-		result.add(response.getBody());
-		}
-		
-		
-		return ResponseEntity.ok(result);
-	}
+
 
 	
 	

@@ -45,7 +45,7 @@ public class MainController {
 	@PostMapping("/domestic")
 	public ResponseEntity<ResponseData> getMainDomestic(@RequestBody List<StockDTO> codes){
 		
-		ResponseEntity<List<StockDTO>> result = mainService.getMainDomestic(codes);
+		List<StockDTO> result = mainService.getMainDomestic(codes);
 		
 		
 		ResponseData responseData = ResponseData.builder()
@@ -57,6 +57,21 @@ public class MainController {
 		return ResponseEntity.ok(responseData) ;
 		
 	}
+	@PostMapping("/domesticDetails")
+	public ResponseEntity<ResponseData> getMainDomesticDetail(@RequestBody List<StockDTO> codes){
+		
+		List<StockDTO> result = mainService.getMainDomestic(codes);
+		
+		
+		ResponseData responseData = ResponseData.builder()
+				.code("A100")
+				.items(result)
+				.message("국내디테일조회성공")
+				.build();
+		
+		return ResponseEntity.ok(responseData) ;
+	}
+	
 	@GetMapping("/overseas")
 	public ResponseEntity<ResponseData> getMainOverseas(@RequestParam("symbol") List<String> symbol){
 			
@@ -95,23 +110,10 @@ public class MainController {
 	}
 	
 	
-	@PostMapping("/domesticDetails")
-	public ResponseEntity<ResponseData> getMainDomesticDetail(@RequestBody List<StockDTO> codes){
-		
-		ResponseEntity<List<StockDTO>> result = mainService.getMainDomestic(codes);
-		
-		
-		ResponseData responseData = ResponseData.builder()
-												.code("A100")
-												.items(result)
-												.message("국내디테일조회성공")
-												.build();
-		
-		return ResponseEntity.ok(responseData) ;
 		
 	
 	
 	
-	}
+	
 	
 }
