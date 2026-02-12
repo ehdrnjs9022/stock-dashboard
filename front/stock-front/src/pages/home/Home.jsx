@@ -7,11 +7,11 @@ import {
   MainRight,
   ChartBox,
   IndexCard,
-} from './Home.styles';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import he from 'he';
+} from "./Home.styles";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import he from "he";
 
 const Home = () => {
   const [news, setNews] = useState([]);
@@ -32,23 +32,24 @@ const Home = () => {
 
   // 🇰🇷 국내 주요 종목
   const codes = [
-    { itemCode: '005930', stockName: '삼성전자' },
-    { itemCode: '000660', stockName: 'SK하이닉스' },
-    { itemCode: '035420', stockName: 'NAVER' },
-    { itemCode: '373220', stockName: 'LG에너지솔루션' },
-    { itemCode: '051910', stockName: 'LG화학' },
-    { itemCode: '005380', stockName: '현대차' },
-    { itemCode: '000270', stockName: '기아' },
-    { itemCode: '207940', stockName: '삼성바이오로직스' },
-    { itemCode: '028260', stockName: '삼성물산' },
-    { itemCode: '003550', stockName: 'LG' },
+    { itemCode: "005930", stockName: "삼성전자" },
+    { itemCode: "000660", stockName: "SK하이닉스" },
+    { itemCode: "035420", stockName: "NAVER" },
+    { itemCode: "373220", stockName: "LG에너지솔루션" },
+    { itemCode: "051910", stockName: "LG화학" },
+    { itemCode: "005380", stockName: "현대차" },
+    { itemCode: "000270", stockName: "기아" },
+    { itemCode: "207940", stockName: "삼성바이오로직스" },
+    { itemCode: "028260", stockName: "삼성물산" },
+    { itemCode: "003550", stockName: "LG" },
   ];
 
   useEffect(() => {
     axios
       .post(`http://localhost:8080/api/domestic`, codes)
       .then((res) => {
-        setStock(res.data.items.body || []);
+        setStock(res.data.items || []);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -58,27 +59,27 @@ const Home = () => {
   // 🌍 해외 증시 요약
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/overseas', {
+      .get("http://localhost:8080/api/overseas", {
         params: {
           symbol: [
-            'AAPL',
-            'MSFT',
-            'TSLA',
-            'AMZN',
-            'NVDA',
-            'GOOG',
-            'META',
-            'NFLX',
-            'ORCL',
-            'INTC',
-            'ADBE',
-            'PEP',
-            'KO',
-            'NKE',
-            'DIS',
-            'QQQ',
-            'SPY',
-            'DIA',
+            "AAPL",
+            "MSFT",
+            "TSLA",
+            "AMZN",
+            "NVDA",
+            "GOOG",
+            "META",
+            "NFLX",
+            "ORCL",
+            "INTC",
+            "ADBE",
+            "PEP",
+            "KO",
+            "NKE",
+            "DIS",
+            "QQQ",
+            "SPY",
+            "DIA",
           ],
         },
       })
@@ -119,7 +120,7 @@ const Home = () => {
     axios
       .get(`http://localhost:8080/api/crypto`)
       .then((res) => {
-        const btcData = res.data.items.find((c) => c.market === 'KRW-BTC');
+        const btcData = res.data.items.find((c) => c.market === "KRW-BTC");
         setBtc(btcData);
         console.log(btcData);
       })
@@ -135,18 +136,18 @@ const Home = () => {
       {/* 주요 지수 카드 */}
       <ChartBox>
         <IndexCard
-          onClick={() => navi('/market/kospi')}
-          style={{ cursor: 'pointer' }}
+          onClick={() => navi("/market/kospi")}
+          style={{ cursor: "pointer" }}
         >
           <h2>KOSPI</h2>
           <div className="value">
-            {kospi?.[0]?.closePrice?.toLocaleString() || '-'}
+            {kospi?.[0]?.closePrice?.toLocaleString() || "-"}
           </div>
           <div
             className={`sub ${
               kospi?.[0]?.compareToPreviousPrice?.code == 2
-                ? 'positive'
-                : 'negative'
+                ? "positive"
+                : "negative"
             }`}
           >
             등락률 {kospi?.[0]?.compareToPreviousClosePrice}%
@@ -154,8 +155,8 @@ const Home = () => {
         </IndexCard>
 
         <IndexCard
-          onClick={() => navi('/market/nasdaq')}
-          style={{ cursor: 'pointer' }}
+          onClick={() => navi("/market/nasdaq")}
+          style={{ cursor: "pointer" }}
         >
           <h2>NASDAQ</h2>
           <div className="value">
@@ -163,9 +164,9 @@ const Home = () => {
               ? Number(
                   nasdaq?.chart?.result[0]?.indicators?.quote[0]?.close
                     .at(-1)
-                    .toFixed(2)
+                    .toFixed(2),
                 ).toLocaleString()
-              : '_'}
+              : "_"}
           </div>
           <div
             className={`sub ${
@@ -173,11 +174,11 @@ const Home = () => {
                 nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
                 nasdaq?.chart?.result[0]?.meta?.chartPreviousClose >
               0
-                ? 'positive'
-                : 'negative'
+                ? "positive"
+                : "negative"
             }`}
           >
-            등락률{' '}
+            등락률{" "}
             {(
               ((nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
                 nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
@@ -189,17 +190,17 @@ const Home = () => {
         </IndexCard>
 
         <IndexCard
-          onClick={() => navi('/market/btc')}
-          style={{ cursor: 'pointer' }}
+          onClick={() => navi("/market/btc")}
+          style={{ cursor: "pointer" }}
         >
           <h2>BTC</h2>
           <div className="value">
-            {btc?.trade_price ? Number(btc.trade_price).toLocaleString() : '-'}{' '}
+            {btc?.trade_price ? Number(btc.trade_price).toLocaleString() : "-"}{" "}
             KRW
           </div>
           <div
             className={`sub ${
-              btc?.change_rate * 100 > 0 ? 'positive' : 'negative'
+              btc?.change_rate * 100 > 0 ? "positive" : "negative"
             }`}
           >
             등락률 {(btc?.change_rate * 100).toFixed(2)}%
@@ -214,7 +215,7 @@ const Home = () => {
           {news.slice(0, 5).map((item, index) => (
             <div className="news-card" key={index}>
               <div className="title">
-                {he.decode(item.title.replace(/<[^>]+>/g, ''))}
+                {he.decode(item.title.replace(/<[^>]+>/g, ""))}
               </div>
               <a href={item.link} target="_blank" rel="noreferrer">
                 기사 보기
@@ -242,10 +243,10 @@ const Home = () => {
                   <td
                     className={`sub ${
                       s.industryCompareInfo?.[0]?.fluctuationsRatio > 0
-                        ? 'positive'
+                        ? "positive"
                         : s.industryCompareInfo?.[0]?.fluctuationsRatio < 0
-                        ? 'negative'
-                        : '-'
+                          ? "negative"
+                          : "-"
                     }`}
                   >
                     {s.industryCompareInfo?.[0]?.fluctuationsRatio}%
@@ -274,20 +275,20 @@ const Home = () => {
                   .slice(0, 10)
                   .map((o, idx) => (
                     <tr key={idx}>
-                      <td>{o['01. symbol'] || o.symbol || '-'}</td>
-                      <td>{o['05. price'] || o.price || '-'}</td>
+                      <td>{o["01. symbol"] || o.symbol || "-"}</td>
+                      <td>{o["05. price"] || o.price || "-"}</td>
                       <td
                         className={`sub ${
-                          parseFloat(o['10. change percent']) > 0
-                            ? 'positive'
-                            : parseFloat(o['10. change percent']) < 0
-                            ? 'negative'
-                            : '_'
+                          parseFloat(o["10. change percent"]) > 0
+                            ? "positive"
+                            : parseFloat(o["10. change percent"]) < 0
+                              ? "negative"
+                              : "_"
                         }`}
                       >
-                        {o['10. change percent']
-                          ? parseFloat(o['10. change percent']).toFixed(2) + '%'
-                          : '-'}
+                        {o["10. change percent"]
+                          ? parseFloat(o["10. change percent"]).toFixed(2) + "%"
+                          : "-"}
                       </td>
                     </tr>
                   ))
@@ -296,9 +297,9 @@ const Home = () => {
                   <td
                     colSpan="3"
                     style={{
-                      textAlign: 'center',
-                      color: 'gray',
-                      padding: '25px',
+                      textAlign: "center",
+                      color: "gray",
+                      padding: "25px",
                     }}
                   >
                     🌐 해외 증시 API 호출 초과입니다.
