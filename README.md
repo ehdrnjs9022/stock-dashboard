@@ -14,8 +14,6 @@ React 기반의 인터랙티브 차트와 Spring Boot 백엔드, 여러 외부 A
 
 ## 기술 스택
 
-## 기술 스택
-
 - Frontend: React, HTML, CSS, Axios, Styled Components
 - Backend: Spring Boot 3.4.4, Spring Security, JWT, MyBatis, JDBC
 - Database: Oracle 18c
