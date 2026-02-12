@@ -14,12 +14,14 @@ React 기반의 인터랙티브 차트와 Spring Boot 백엔드, 여러 외부 A
 
 ## 기술 스택
 
-- Backend: Spring Boot 3.4.4, MyBatis 3.0.4, Oracle 18c
-- Frontend: React, Styled Components
-- API: Yahoo Finance, AlphaVantage, Upbit, Naver API
-- 인증: JWT, Spring Security
-- 캐싱: Caffeine
-- 도구: STS, VSCode, DBeaver
+## 기술 스택
+
+- Frontend: React, HTML, CSS, Axios, Styled Components
+- Backend: Spring Boot 3.4.4, Spring Security, JWT, MyBatis, JDBC
+- Database: Oracle 18c
+- Version Control: Git, GitHub
+- Tools: STS4, VS Code, DBeaver, Postman
+- External API: Yahoo Finance, AlphaVantage, Upbit, Naver API
 
 ## 주요 기능
 
