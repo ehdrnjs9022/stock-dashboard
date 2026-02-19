@@ -3,10 +3,16 @@ server:
 spring:
   datasource:
     url: jdbc:oracle:thin:@192.168.219.100:1521/XEPDB1
-    username: system
+    username: system      # SYSTEM 대신 앱 계정 권장
     password: 1234
-
- 
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      maximum-pool-size: 5       # 커넥션 풀 제한
+      minimum-idle: 1
+      connection-timeout: 20000   
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      validation-timeout: 3000   # 커넥션 유효성 체크 최대 3초
 
   mail:
     host: smtp.gmail.com
