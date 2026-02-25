@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   PageContainer,
   Hero,
@@ -26,16 +26,20 @@ import {
   ModalButtons,
   PrimaryButton,
   SecondaryButton,
-} from './Mypage.style';
+} from "./Mypage.style";
+import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
 
 const Mypage = () => {
   const navi = useNavigate();
+  const { auth } = useContext(AuthContext);
+  const [info, setInfo] = useState(null);
 
   const [showMenu, setShowMenu] = useState(false);
   const [openNicknameModal, setOpenNicknameModal] = useState(false);
   const [openProfileModal, setOpenProfileModal] = useState(false);
 
-  const [newNick, setNewNick] = useState('');
+  const [newNick, setNewNick] = useState("");
   const [previewImage, setPreviewImage] = useState(null);
 
   const handleProfileFile = (e) => {
@@ -45,6 +49,23 @@ const Mypage = () => {
     }
   };
 
+  useEffect(() => {
+    if (!auth.accessToken) return;
+    axios
+      .get(`http://localhost:8080/api/info`, {
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      })
+      .then((res) => {
+        setInfo(res.data.items);
+        console.log(res.data.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [auth.accessToken]);
+  console.log(auth.accessToken);
   return (
     <PageContainer>
       {/* 히어로 */}
@@ -62,11 +83,11 @@ const Mypage = () => {
 
           <ProfileInfo>
             <ProfileNameRow>
-              <ProfileName>닉네임</ProfileName>
+              <ProfileName>{info?.nickName}</ProfileName>
             </ProfileNameRow>
 
-            <ProfileEmail>📧 example@ naver.com</ProfileEmail>
-            <ProfileRealName>🙋 홍길동</ProfileRealName>
+            <ProfileEmail>📧 {info?.email}</ProfileEmail>
+            <ProfileRealName>🙋 {info?.realName}</ProfileRealName>
           </ProfileInfo>
         </ProfileLeft>
 
@@ -84,10 +105,10 @@ const Mypage = () => {
               <DropdownItem onClick={() => setOpenProfileModal(true)}>
                 🖼 프로필 변경
               </DropdownItem>
-              <DropdownItem onClick={() => navi('/mypage/password')}>
+              <DropdownItem onClick={() => navi("/mypage/password")}>
                 🔒 비밀번호 변경
               </DropdownItem>
-              <DropdownItem red onClick={() => navi('/mypage/delete')}>
+              <DropdownItem red onClick={() => navi("/mypage/delete")}>
                 ❌ 회원탈퇴
               </DropdownItem>
             </DropdownMenu>
@@ -144,10 +165,10 @@ const Mypage = () => {
                 style={{
                   width: 120,
                   height: 120,
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  display: 'block',
-                  margin: '0 auto 20px',
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  display: "block",
+                  margin: "0 auto 20px",
                 }}
               />
             )}

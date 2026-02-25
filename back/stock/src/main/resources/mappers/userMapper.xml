@@ -31,7 +31,21 @@
   	</insert>
   
   
-  
+  	<select id="selectInfo"
+  			parameterType="com.dk.project.user.model.dto.UserResponseDTO"
+  			resultType="com.dk.project.user.model.dto.UserResponseDTO">
+  				
+  				
+  		SELECT
+  				REALNAME realName,
+  				NICKNAME nickName,
+  				EMAIL	 email
+  		FROM
+  				TB_USER
+  		WHERE
+  				USER_NO = #{userNo}
+  	
+  	</select>
   
   
   

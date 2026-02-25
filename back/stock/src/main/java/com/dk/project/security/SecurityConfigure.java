@@ -69,6 +69,10 @@ public class SecurityConfigure {
 				   request.requestMatchers(HttpMethod.GET,
 						   "/api/**"
 							 ).permitAll();
+				   
+				   request.requestMatchers(HttpMethod.GET,
+						   "/api/info"
+						   ).authenticated();
 				  
 				   request.requestMatchers(HttpMethod.DELETE, 
 						   "/api/board/delete/**",

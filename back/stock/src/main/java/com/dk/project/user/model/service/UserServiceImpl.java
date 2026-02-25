@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.dk.project.user.model.dao.UserMapper;
 import com.dk.project.user.model.dto.UserDTO;
+import com.dk.project.user.model.dto.UserResponseDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +27,15 @@ public class UserServiceImpl implements UserService {
 		userMapper.signUp(userDTO);
 		
 		
+	}
+
+
+	@Override
+	public UserResponseDTO selectInfo(UserResponseDTO userResponseDTO) {
+
+		UserResponseDTO result = userMapper.selectInfo(userResponseDTO);
 		
+		return result;
 	}
 
 	
