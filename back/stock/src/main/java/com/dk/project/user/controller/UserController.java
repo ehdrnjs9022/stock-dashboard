@@ -1,12 +1,16 @@
 package com.dk.project.user.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dk.project.auth.model.vo.DkUserDetails;
 import com.dk.project.user.model.dto.UserDTO;
+import com.dk.project.user.model.dto.UserResponseDTO;
 import com.dk.project.user.model.service.UserService;
 import com.dk.project.util.model.dto.ResponseData;
 
@@ -35,4 +39,28 @@ public class UserController {
 		return ResponseEntity.ok(responseData);
 		
 	}
+	@GetMapping("/info")	
+	public ResponseEntity<ResponseData> selectInfo(@AuthenticationPrincipal DkUserDetails user){
+		
+		UserResponseDTO userResponseDTO = new UserResponseDTO();
+		userResponseDTO.setUserNo(user.getUserNo());
+		userResponseDTO.setEmail(user.getEmail());
+		userResponseDTO.setNickName(user.getNickName());
+		userResponseDTO.setRealName(user.getRealName());
+		
+		
+		UserResponseDTO result = userService.selectInfo(userResponseDTO);
+		
+		ResponseData responseData = ResponseData.builder()
+				.code("A100")
+				.items(result)
+				.message("마이페이지조회에 성공하셨습니다.")
+				.build();
+		
+		return ResponseEntity.ok(responseData);
+		
+	}
+	
+	
+	
 }

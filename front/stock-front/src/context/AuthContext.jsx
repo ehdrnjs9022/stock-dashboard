@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { createContext, useEffect, useState } from 'react';
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     nickName,
     email,
     accessToken,
-    refreshToken
+    refreshToken,
   ) => {
     setAuth({
       userId,
@@ -32,17 +32,17 @@ export const AuthProvider = ({ children }) => {
       isAuthenticated: true,
     });
 
-    localStorage.setItem('userId', userId);
-    localStorage.setItem('realName', realName);
-    localStorage.setItem('nickName', nickName);
-    localStorage.setItem('email', email);
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
-    localStorage.setItem('isAuthenticated', 'true');
+    sessionStorage.setItem("userId", userId);
+    sessionStorage.setItem("realName", realName);
+    sessionStorage.setItem("nickName", nickName);
+    sessionStorage.setItem("email", email);
+    sessionStorage.setItem("accessToken", accessToken);
+    sessionStorage.setItem("refreshToken", refreshToken);
+    sessionStorage.setItem("isAuthenticated", "true");
   };
 
   const logout = () => {
-    const refreshToken = localStorage.getItem('refreshToken');
+    const refreshToken = sessionStorage.getItem("refreshToken");
     if (refreshToken) {
       axios
         .post(`http://localhost:8080/api/logout`, {
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
         })
 
         .catch((err) => {
-          console.log(err, 'refreshToken 에러');
+          console.log(err, "refreshToken 에러");
         });
     }
 
@@ -64,16 +64,16 @@ export const AuthProvider = ({ children }) => {
       isAuthenticated: false,
     });
 
-    localStorage.clear();
+    sessionStorage.clear();
   };
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    const realName = localStorage.getItem('realName');
-    const nickName = localStorage.getItem('nickName');
-    const email = localStorage.getItem('email');
-    const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
+    const userId = sessionStorage.getItem("userId");
+    const realName = sessionStorage.getItem("realName");
+    const nickName = sessionStorage.getItem("nickName");
+    const email = sessionStorage.getItem("email");
+    const accessToken = sessionStorage.getItem("accessToken");
+    const refreshToken = sessionStorage.getItem("refreshToken");
 
     if (accessToken) {
       setAuth({

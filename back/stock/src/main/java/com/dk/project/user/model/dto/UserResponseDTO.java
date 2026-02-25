@@ -1,22 +1,17 @@
 package com.dk.project.user.model.dto;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@Setter
 @Getter
-public class UserDTO {
+@Setter
+@ToString
+public class UserResponseDTO {
 
 	
 	private Long userNo;
 	private String realName;
 	private String nickName;
-	private String userId;
 	private String email;
-	private String password;
-	private String role;
-	
 }
