@@ -73,7 +73,9 @@ public class SecurityConfigure {
 				   
 				   request.requestMatchers(HttpMethod.GET,
 						   "/api/info",
-						   "/api/profile/select"
+						   "/api/profile/select",
+						   "/api/activity/select",
+						   "/api/comment/select"
 						   ).authenticated();
 				  
 				   request.requestMatchers(HttpMethod.DELETE, 

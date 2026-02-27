@@ -195,3 +195,35 @@ export const SecondaryButton = styled.button`
   border-radius: 8px;
   border: none;
 `;
+
+export const ActivityWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+`;
+
+export const ActivityCard = styled.div`
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 25px 20px;
+  min-width: 160px;
+  flex: 1 0 160px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-3px);
+    transition: 0.2s;
+  }
+`;
+
+export const ActivityTitle = styled.p`
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 8px;
+`;
+
+export const ActivityCount = styled.strong`
+  font-size: 1.4rem;
+`;

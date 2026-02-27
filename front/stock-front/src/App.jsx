@@ -23,6 +23,7 @@ import Board from "./pages/board/Board";
 import BoardDetails from "./pages/board/BoardDetails";
 import BoardWrite from "./pages/board/boardWrite";
 import BoardUpdate from "./pages/board/BoardUpdate";
+import MyCommentList from "./pages/myPage/MyCommentList";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="/board" element={<Board />}></Route>
             <Route path="/board/write" element={<BoardWrite />}></Route>
             <Route path="/board/:boardNo" element={<BoardDetails />}></Route>
+            <Route path="/mycomments" element={<MyCommentList />} />
             <Route
               path="/board/update/:boardNo"
               element={<BoardUpdate />}

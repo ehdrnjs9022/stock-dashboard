@@ -26,6 +26,10 @@ import {
   ModalButtons,
   PrimaryButton,
   SecondaryButton,
+  ActivityCard,
+  ActivityTitle,
+  ActivityCount,
+  ActivityWrapper,
 } from "./Mypage.style";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
@@ -40,6 +44,7 @@ const Mypage = () => {
   const [openProfileModal, setOpenProfileModal] = useState(false);
 
   const [newNick, setNewNick] = useState("");
+  const [activity, setActivity] = useState(null);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -111,6 +116,24 @@ const Mypage = () => {
         console.log(err);
       });
   }, [auth.accessToken]);
+
+  useEffect(() => {
+    if (!auth.accessToken) return;
+    axios
+      .get(`http://localhost:8080/api/activity/select`, {
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      })
+      .then((res) => {
+        setActivity(res.data.items);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [auth.accessToken]);
+
   return (
     <PageContainer>
       {/* 히어로 */}
@@ -162,66 +185,23 @@ const Mypage = () => {
       </ProfileCard>
 
       {/* 즐겨찾기 / 추천 종목 */}
-      <Section>
-        <SectionTitle>추천 종목</SectionTitle>
-        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          {/* 더미 추천 종목 카드 */}
-          {["테스트시장1", "테스트시장2", "테스트시장3", "테스트시장4"].map(
-            (item) => (
-              <div
-                key={item}
-                style={{
-                  background: "#f1f3f5",
-                  borderRadius: "12px",
-                  padding: "20px",
-                  minWidth: "140px",
-                  flex: "1 0 140px",
-                  textAlign: "center",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
-                }}
-              >
-                <strong>{item}</strong>
-                <p style={{ marginTop: "8px", color: "#666" }}>추천 종목</p>
-              </div>
-            ),
-          )}
-        </div>
-      </Section>
 
-      {/* 나의 활동 */}
       <Section>
         <SectionTitle>나의 활동</SectionTitle>
-        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          {/* 더미 활동 카드 */}
-          {[
-            { title: "작성한 게시물", count: 0 },
-            { title: "작성한 댓글", count: 0 },
-          ].map((activity) => (
-            <div
-              key={activity.title}
-              style={{
-                background: "#f8f9fa",
-                borderRadius: "12px",
-                padding: "25px 20px",
-                minWidth: "160px",
-                flex: "1 0 160px",
-                textAlign: "center",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: "0.9rem",
-                  color: "#666",
-                  marginBottom: "8px",
-                }}
-              >
-                {activity.title}
-              </p>
-              <strong style={{ fontSize: "1.4rem" }}>{activity.count}</strong>
-            </div>
-          ))}
-        </div>
+
+        <ActivityWrapper>
+          <ActivityCard
+            onClick={() => navi(`/board?userNo=${activity?.userNo}`)}
+          >
+            <ActivityTitle>작성한 게시물</ActivityTitle>
+            <ActivityCount>{activity?.boardCount ?? 0}</ActivityCount>
+          </ActivityCard>
+
+          <ActivityCard onClick={() => navi(`/mycomments`)}>
+            <ActivityTitle>작성한 댓글</ActivityTitle>
+            <ActivityCount>{activity?.commentCount ?? 0}</ActivityCount>
+          </ActivityCard>
+        </ActivityWrapper>
       </Section>
 
       {/* 닉네임 변경 모달 */}

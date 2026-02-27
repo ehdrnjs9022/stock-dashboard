@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const reisseToken = axios.create();
+const reisseToken = axios.create({
+  baseURL: "http://localhost:8080",
+});
 
 reisseToken.interceptors.request.use((config) => {
   if (!config.headers) config.headers = {};

@@ -58,6 +58,36 @@
   	</delete>
   	-->
 
+	<select id="getBoardComment"
+			parameterType="Long"
+			resultType="com.dk.project.mypage.model.dto.BoardCommentDTO">
+	
+		SELECT
+				#{userNo} AS userNo,
+				(SELECT COUNT (*) FROM TB_BOARD   WHERE USER_NO = #{userNo})  boardCount,
+				(SELECT COUNT (*) FROM TB_COMMENT WHERE USER_NO = #{userNo})  commentCount
+		FROM
+				dual
+	</select>
+	
+
+	<select id="getCommnet"
+			parameterType="Long"
+			resultType="com.dk.project.mypage.model.dto.BoardCommentDTO">
+		
+		SELECT
+				COMMENT_NO commentNo,
+				USER_NO userNo,
+				BOARD_NO boardNo,
+				CONTENT content,
+				CREATE_DATE createDate
+		FROM
+				TB_COMMENT
+		WHERE
+				USER_NO = #{userNo}
+					
+	</select>
+
   
   
   
