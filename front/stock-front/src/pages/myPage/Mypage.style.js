@@ -1,18 +1,18 @@
 // Mypage.styles.js
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const PageContainer = styled.div`
   max-width: 1100px;
   margin: 0 auto;
   padding: 30px 20px;
-  font-family: 'Pretendard', sans-serif;
+  font-family: "Pretendard", sans-serif;
 `;
 
 /* 히어로 */
 export const Hero = styled.div`
   height: 180px;
   border-radius: 14px;
-  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e')
+  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e")
     center/cover no-repeat;
   position: relative;
   margin-bottom: 40px;
@@ -115,7 +115,7 @@ export const DropdownItem = styled.div`
   padding: 12px 15px;
   cursor: pointer;
   font-size: 0.95rem;
-  color: ${(p) => (p.red ? '#d00000' : '#444')};
+  color: ${(p) => (p.red ? "#d00000" : "#444")};
 
   &:hover {
     background: #f1f3f5;

@@ -4,10 +4,10 @@ import {
   IndexWrap,
   IndexCard,
   Table,
-} from './Overseas.style';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+} from "./Overseas.style";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const OverSeas = () => {
   const [overSeas, setOverSeas] = useState([]);
@@ -45,24 +45,24 @@ const OverSeas = () => {
       .get(`http://localhost:8080/api/overseas`, {
         params: {
           symbol: [
-            'AAPL',
-            'MSFT',
-            'TSLA',
-            'AMZN',
-            'NVDA',
-            'GOOG',
-            'META',
-            'NFLX',
-            'ORCL',
-            'INTC',
-            'ADBE',
-            'PEP',
-            'KO',
-            'NKE',
-            'DIS',
-            'QQQ',
-            'SPY',
-            'DIA',
+            "AAPL",
+            "MSFT",
+            "TSLA",
+            "AMZN",
+            "NVDA",
+            "GOOG",
+            "META",
+            "NFLX",
+            "ORCL",
+            "INTC",
+            "ADBE",
+            "PEP",
+            "KO",
+            "NKE",
+            "DIS",
+            "QQQ",
+            "SPY",
+            "DIA",
           ],
         },
       })
@@ -116,15 +116,15 @@ const OverSeas = () => {
 
       <IndexWrap>
         <IndexCard
-          onClick={() => navi('/market/nasdaq')}
-          style={{ cursor: 'pointer' }}
+          onClick={() => navi("/market/nasdaq")}
+          style={{ cursor: "pointer" }}
         >
           <h2>NASDAQ 100 </h2>
           <div className="value">
             {Number(
               Number(
-                nasdaq?.chart?.result[0]?.meta?.regularMarketPrice
-              ).toFixed(2)
+                nasdaq?.chart?.result[0]?.meta?.regularMarketPrice,
+              ).toFixed(2),
             ).toLocaleString()}
           </div>
           <div
@@ -132,16 +132,16 @@ const OverSeas = () => {
               nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
                 nasdaq?.chart?.result[0]?.meta?.chartPreviousClose >
               0
-                ? 'positive'
-                : 'negative'
+                ? "positive"
+                : "negative"
             }`}
           >
-            전일대비{' '}
+            전일대비{" "}
             {Number(
               Number(
                 nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
-                  nasdaq?.chart?.result[0]?.meta?.chartPreviousClose
-              ).toFixed(2)
+                  nasdaq?.chart?.result[0]?.meta?.chartPreviousClose,
+              ).toFixed(2),
             ).toLocaleString()}
           </div>
           <div
@@ -150,11 +150,11 @@ const OverSeas = () => {
                 nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) /
                 nasdaq?.chart?.result[0]?.meta?.chartPreviousClose >
               0
-                ? 'positive'
-                : 'negative'
+                ? "positive"
+                : "negative"
             }`}
           >
-            등락률{' '}
+            등락률{" "}
             {nasdaq?.chart?.result[0]?.meta
               ? (
                   ((nasdaq?.chart?.result[0]?.meta?.regularMarketPrice -
@@ -162,29 +162,29 @@ const OverSeas = () => {
                     nasdaq?.chart?.result[0]?.meta?.chartPreviousClose) *
                   100
                 ).toFixed(2)
-              : '_'}
+              : "_"}
             %
           </div>
           <div className="sub">
             <span className="sub-value">
               {new Date(
-                nasdaq?.chart.result[0]?.timestamp[22] * 1000
-              ).toLocaleDateString('ko-KR', { timeZone: 'America/New_York' })}
+                nasdaq?.chart.result[0]?.timestamp[21] * 1000,
+              ).toLocaleDateString("ko-KR", { timeZone: "America/New_York" })}
             </span>
           </div>
         </IndexCard>
 
         {/* SPY */}
         <IndexCard
-          onClick={() => navi('/market/sp500')}
-          style={{ cursor: 'pointer' }}
+          onClick={() => navi("/market/sp500")}
+          style={{ cursor: "pointer" }}
         >
           <h2>S&P 500</h2>
           <div className="value">
             {Number(
               Number(sp500?.chart?.result[0]?.meta?.regularMarketPrice).toFixed(
-                2
-              )
+                2,
+              ),
             ).toLocaleString()}
           </div>
           <div
@@ -192,16 +192,16 @@ const OverSeas = () => {
               sp500?.chart?.result[0]?.meta?.regularMarketPrice -
                 sp500?.chart?.result[0]?.meta?.chartPreviousClose >
               0
-                ? 'positive'
-                : 'negative'
+                ? "positive"
+                : "negative"
             }`}
           >
-            전일대비{' '}
+            전일대비{" "}
             {Number(
               Number(
                 sp500?.chart?.result[0]?.meta?.regularMarketPrice -
-                  sp500?.chart?.result[0]?.meta?.chartPreviousClose
-              ).toFixed(2)
+                  sp500?.chart?.result[0]?.meta?.chartPreviousClose,
+              ).toFixed(2),
             ).toLocaleString()}
           </div>
           <div
@@ -210,11 +210,11 @@ const OverSeas = () => {
                 sp500?.chart?.result[0]?.meta?.chartPreviousClose) /
                 sp500?.chart?.result[0]?.meta?.chartPreviousClose >
               0
-                ? 'positive'
-                : 'negative'
+                ? "positive"
+                : "negative"
             }`}
           >
-            등락률{' '}
+            등락률{" "}
             {sp500?.chart?.result[0]?.meta
               ? (
                   ((sp500?.chart?.result[0]?.meta?.regularMarketPrice -
@@ -222,28 +222,28 @@ const OverSeas = () => {
                     sp500?.chart?.result[0]?.meta?.chartPreviousClose) *
                   100
                 ).toFixed(2)
-              : '_'}
+              : "_"}
             %
           </div>
           <div className="sub">
             <span className="sub-value">
               {new Date(
-                sp500?.chart.result[0]?.timestamp[22] * 1000
-              ).toLocaleDateString('ko-KR', { timeZone: 'America/New_York' })}
+                sp500?.chart.result[0]?.timestamp[21] * 1000,
+              ).toLocaleDateString("ko-KR", { timeZone: "America/New_York" })}
             </span>
           </div>
         </IndexCard>
         {/* DIA */}
         <IndexCard
-          onClick={() => navi('/market/dowjones')}
-          style={{ cursor: 'pointer' }}
+          onClick={() => navi("/market/dowjones")}
+          style={{ cursor: "pointer" }}
         >
           <h2>Dow Jones</h2>
           <div className="value">
             {Number(
               Number(
-                dowjones?.chart?.result[0]?.meta?.regularMarketPrice
-              ).toFixed(2)
+                dowjones?.chart?.result[0]?.meta?.regularMarketPrice,
+              ).toFixed(2),
             ).toLocaleString()}
           </div>
           <div
@@ -251,16 +251,16 @@ const OverSeas = () => {
               dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
                 dowjones?.chart?.result[0]?.meta?.chartPreviousClose >
               0
-                ? 'positive'
-                : 'negative'
+                ? "positive"
+                : "negative"
             }`}
           >
-            전일대비{' '}
+            전일대비{" "}
             {Number(
               Number(
                 dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
-                  dowjones?.chart?.result[0]?.meta?.chartPreviousClose
-              ).toFixed(2)
+                  dowjones?.chart?.result[0]?.meta?.chartPreviousClose,
+              ).toFixed(2),
             ).toLocaleString()}
           </div>
           <div
@@ -269,11 +269,11 @@ const OverSeas = () => {
                 dowjones?.chart?.result[0]?.meta?.chartPreviousClose) /
                 dowjones?.chart?.result[0]?.meta?.chartPreviousClose >
               0
-                ? 'positive'
-                : 'negetive'
+                ? "positive"
+                : "negetive"
             }`}
           >
-            등락률{' '}
+            등락률{" "}
             {dowjones?.chart?.result[0]?.meta
               ? (
                   ((dowjones?.chart?.result[0]?.meta?.regularMarketPrice -
@@ -281,14 +281,14 @@ const OverSeas = () => {
                     dowjones?.chart?.result[0]?.meta?.chartPreviousClose) *
                   100
                 ).toFixed(2)
-              : '_'}
+              : "_"}
             %
           </div>
           <div className="sub">
             <span className="sub-value">
               {new Date(
-                dowjones?.chart.result[0]?.timestamp[22] * 1000
-              ).toLocaleDateString('ko-KR', { timeZone: 'America/New_York' })}
+                dowjones?.chart.result[0]?.timestamp[21] * 1000,
+              ).toLocaleDateString("ko-KR", { timeZone: "America/New_York" })}
             </span>
           </div>
         </IndexCard>
@@ -310,17 +310,17 @@ const OverSeas = () => {
             overSeas.filter(Boolean).map((o, idx) =>
               o ? (
                 <tr key={idx}>
-                  <td>{o['01. symbol']}</td>
-                  <td>{o['05. price']}</td>
-                  <td>{o['08. previous close']}</td>
-                  <td>{o['10. change percent']}</td>
-                  <td>{o['06. volume']}</td>
+                  <td>{o["01. symbol"]}</td>
+                  <td>{o["05. price"]}</td>
+                  <td>{o["08. previous close"]}</td>
+                  <td>{o["10. change percent"]}</td>
+                  <td>{o["06. volume"]}</td>
                 </tr>
-              ) : null
+              ) : null,
             )
           ) : (
             <tr>
-              <td colSpan="5" style={{ textAlign: 'center', color: 'gray' }}>
+              <td colSpan="5" style={{ textAlign: "center", color: "gray" }}>
                 해외증시 API 호출 초과
               </td>
             </tr>

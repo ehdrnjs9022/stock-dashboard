@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const BoardWrap = styled.div`
   max-width: 1080px;
@@ -46,14 +46,14 @@ export const CatButton = styled.button`
   padding: 8px 14px;
   border-radius: 6px;
   border: none;
-  background: ${({ active }) => (active ? '#5b77f2' : '#e9ecef')};
-  color: ${({ active }) => (active ? '#fff' : '#333')};
+  background: ${({ active }) => (active ? "#5b77f2" : "#e9ecef")};
+  color: ${({ active }) => (active ? "#fff" : "#333")};
   font-weight: 600;
   cursor: pointer;
   transition: 0.25s;
 
   &:hover {
-    background: ${({ active }) => (active ? '#4a63d5' : '#dee2e6')};
+    background: ${({ active }) => (active ? "#4a63d5" : "#dee2e6")};
   }
 `;
 

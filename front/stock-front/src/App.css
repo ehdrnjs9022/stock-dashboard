@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+/* index.css나 global.css */
+.app-wrapper {
+  width: 133.33vw; /* 100 / 0.75 */
+  transform: scale(0.75); /* 전체 75% 축소 */
+  transform-origin: top center;
+  margin: 0 auto; /* 중앙 정렬 */
+}

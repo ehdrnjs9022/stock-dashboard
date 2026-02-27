@@ -1,4 +1,4 @@
-import { act, useEffect, useState } from 'react';
+import { act, useEffect, useState } from "react";
 import {
   Container,
   Title,
@@ -9,7 +9,7 @@ import {
   InfoCard,
   DetailGrid,
   DetailItem,
-} from './Common.style';
+} from "./Common.style";
 import {
   Tooltip,
   LineChart,
@@ -18,8 +18,8 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
-} from 'recharts';
-import axios from 'axios';
+} from "recharts";
+import axios from "axios";
 
 const Nasdaq = () => {
   const [monthData, setMonthData] = useState([]);
@@ -41,7 +41,7 @@ const Nasdaq = () => {
         const meta = result.meta || [];
 
         const chartData = timestamps.map((t, i) => ({
-          date: new Date(t * 1000).toLocaleDateString('ko-kr'),
+          date: new Date(t * 1000).toLocaleDateString("ko-kr"),
           close: close[i],
           high: high[i],
           low: low[i],
@@ -81,17 +81,17 @@ const Nasdaq = () => {
         </div>
         <div className="price">
           {Number(
-            monthData[22]?.regularMarketPrice.toFixed(2)
+            monthData[21]?.regularMarketPrice.toFixed(2),
           ).toLocaleString()}
         </div>
         <div className="sub positive">
           {Number(
             (
-              ((monthData[22]?.regularMarketPrice -
-                monthData[22]?.chartPreviousClose) /
-                monthData[22]?.chartPreviousClose) *
+              ((monthData[21]?.regularMarketPrice -
+                monthData[21]?.chartPreviousClose) /
+                monthData[21]?.chartPreviousClose) *
               100
-            ).toFixed(2)
+            ).toFixed(2),
           ).toLocaleString()}
           %
         </div>
@@ -110,7 +110,7 @@ const Nasdaq = () => {
             <YAxis
               tickFormatter={(v) => v.toLocaleString()}
               tick={{ fontSize: 12 }}
-              domain={['auto', 'auto']}
+              domain={["auto", "auto"]}
             />
             <Tooltip
               content={<CustomTooltip setSelectedData={setSelectedData} />}
@@ -169,15 +169,15 @@ const Nasdaq = () => {
             <span
               className={
                 selectedData?.close - selectedData?.prevClose > 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData
                 ? selectedData?.close - selectedData?.prevClose > 0
-                  ? '▲ 상승'
-                  : '▼ 하락'
-                : '_'}
+                  ? "▲ 상승"
+                  : "▼ 하락"
+                : "_"}
             </span>
           </DetailItem>
           <DetailItem>
@@ -185,17 +185,17 @@ const Nasdaq = () => {
             <span
               className={
                 selectedData?.close - selectedData?.prevClose > 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData
                 ? Number(
                     (selectedData?.close - selectedData?.prevClose)
                       .toFixed(2)
-                      .toLocaleString()
+                      .toLocaleString(),
                   )
-                : '_'}
+                : "_"}
             </span>
           </DetailItem>
           <DetailItem>
@@ -205,8 +205,8 @@ const Nasdaq = () => {
                 (selectedData?.close - selectedData?.prevClose) /
                   selectedData?.prevClose >
                 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData
@@ -215,7 +215,7 @@ const Nasdaq = () => {
                       selectedData?.prevClose) *
                     100
                   ).toFixed(2)
-                : '_'}
+                : "_"}
               %
             </span>
           </DetailItem>

@@ -40,13 +40,59 @@ const Mypage = () => {
   const [openProfileModal, setOpenProfileModal] = useState(false);
 
   const [newNick, setNewNick] = useState("");
+
+  const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [selectImage, setSelectImage] = useState(null);
+
+  const defaultUrl =
+    "https://dk-project-bucket.s3.ap-northeast-2.amazonaws.com/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg";
 
   const handleProfileFile = (e) => {
     const file = e.target.files?.[0];
     if (file) {
+      setSelectedFile(file);
       setPreviewImage(URL.createObjectURL(file));
     }
+  };
+
+  useEffect(() => {
+    if (!auth.accessToken) return;
+    axios
+      .get(`http://localhost:8080/api/profile/select`, {
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      })
+      .then((res) => {
+        setSelectImage(res.data.items.fileUrl);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [auth.accessToken]);
+
+  const handleUpload = () => {
+    if (!selectedFile) return;
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+
+    axios
+      .post(`http://localhost:8080/api/profile/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      })
+      .then((res) => {
+        setSelectImage(res.data.items);
+        setOpenProfileModal(false);
+
+        console.log("업로드성공", res.data.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -65,7 +111,6 @@ const Mypage = () => {
         console.log(err);
       });
   }, [auth.accessToken]);
-  console.log(auth.accessToken);
   return (
     <PageContainer>
       {/* 히어로 */}
@@ -79,7 +124,7 @@ const Mypage = () => {
       {/* 프로필 카드 */}
       <ProfileCard>
         <ProfileLeft>
-          <ProfileImage />
+          <ProfileImage src={previewImage || selectImage || defaultUrl} />
 
           <ProfileInfo>
             <ProfileNameRow>
@@ -99,9 +144,9 @@ const Mypage = () => {
 
           {showMenu && (
             <DropdownMenu>
-              <DropdownItem onClick={() => setOpenNicknameModal(true)}>
+              {/* <DropdownItem onClick={() => setOpenNicknameModal(true)}>
                 ✏️ 닉네임 변경
-              </DropdownItem>
+              </DropdownItem> */}
               <DropdownItem onClick={() => setOpenProfileModal(true)}>
                 🖼 프로필 변경
               </DropdownItem>
@@ -116,16 +161,67 @@ const Mypage = () => {
         </SettingsArea>
       </ProfileCard>
 
-      {/* 즐겨찾기 */}
+      {/* 즐겨찾기 / 추천 종목 */}
       <Section>
-        <SectionTitle> 즐겨찾기</SectionTitle>
-        <EmptyBox>등록된 즐겨찾기가 없습니다.</EmptyBox>
+        <SectionTitle>추천 종목</SectionTitle>
+        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+          {/* 더미 추천 종목 카드 */}
+          {["테스트시장1", "테스트시장2", "테스트시장3", "테스트시장4"].map(
+            (item) => (
+              <div
+                key={item}
+                style={{
+                  background: "#f1f3f5",
+                  borderRadius: "12px",
+                  padding: "20px",
+                  minWidth: "140px",
+                  flex: "1 0 140px",
+                  textAlign: "center",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+                }}
+              >
+                <strong>{item}</strong>
+                <p style={{ marginTop: "8px", color: "#666" }}>추천 종목</p>
+              </div>
+            ),
+          )}
+        </div>
       </Section>
 
-      {/* 활동 */}
+      {/* 나의 활동 */}
       <Section>
-        <SectionTitle> 나의 활동</SectionTitle>
-        <EmptyBox>작성한 활동이 없습니다.</EmptyBox>
+        <SectionTitle>나의 활동</SectionTitle>
+        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+          {/* 더미 활동 카드 */}
+          {[
+            { title: "작성한 게시물", count: 0 },
+            { title: "작성한 댓글", count: 0 },
+          ].map((activity) => (
+            <div
+              key={activity.title}
+              style={{
+                background: "#f8f9fa",
+                borderRadius: "12px",
+                padding: "25px 20px",
+                minWidth: "160px",
+                flex: "1 0 160px",
+                textAlign: "center",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "0.9rem",
+                  color: "#666",
+                  marginBottom: "8px",
+                }}
+              >
+                {activity.title}
+              </p>
+              <strong style={{ fontSize: "1.4rem" }}>{activity.count}</strong>
+            </div>
+          ))}
+        </div>
       </Section>
 
       {/* 닉네임 변경 모달 */}
@@ -176,7 +272,7 @@ const Mypage = () => {
             <ModalInput type="file" onChange={handleProfileFile} />
 
             <ModalButtons>
-              <PrimaryButton>변경</PrimaryButton>
+              <PrimaryButton onClick={handleUpload}>변경</PrimaryButton>
               <SecondaryButton onClick={() => setOpenProfileModal(false)}>
                 취소
               </SecondaryButton>

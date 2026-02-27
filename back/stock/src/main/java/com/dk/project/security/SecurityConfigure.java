@@ -44,7 +44,8 @@ public class SecurityConfigure {
 						   "/api/board/write",
 						   "/api/board/like/**",
 						   "/api/board/insertComment/**",
-						   "/api/board/updateComment/**"
+						   "/api/board/updateComment/**",
+						   "/api/profile/upload"
 							 ).authenticated();
 				   request.requestMatchers(HttpMethod.POST,
 						   "/api/find-id",
@@ -71,12 +72,14 @@ public class SecurityConfigure {
 							 ).permitAll();
 				   
 				   request.requestMatchers(HttpMethod.GET,
-						   "/api/info"
+						   "/api/info",
+						   "/api/profile/select"
 						   ).authenticated();
 				  
 				   request.requestMatchers(HttpMethod.DELETE, 
 						   "/api/board/delete/**",
-						   "/api/board/deleteComment/**"
+						   "/api/board/deleteComment/**",
+						   "/api/profile/delete"
 						   ).authenticated();
 				   
             })
