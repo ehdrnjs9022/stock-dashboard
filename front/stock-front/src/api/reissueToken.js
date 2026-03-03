@@ -45,11 +45,11 @@ reisseToken.interceptors.response.use(
 
           original.headers.Authorization = "Bearer " + newAccess;
 
-          return axios(original); // 원래 요청 재전송
+          return reisseToken(original); // 원래 요청 재전송
         })
         .catch(() => {
           sessionStorage.clear();
-          //window.location.href = '/login';
+          window.location.href = "/login";
         });
     }
 

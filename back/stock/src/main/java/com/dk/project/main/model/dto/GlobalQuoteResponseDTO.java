@@ -18,4 +18,15 @@ public class GlobalQuoteResponseDTO {
 	 	@JsonProperty("Global Quote")
 	    private OverseasDTO globalQuote;
 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
 }
+
+

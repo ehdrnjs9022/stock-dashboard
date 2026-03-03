@@ -80,7 +80,6 @@ const OverSeas = () => {
       .get(`http://localhost:8080/api/nasdaq/month`)
       .then((res) => {
         setNasdaq(res.data.items);
-
         console.log(res.data.items);
       })
       .catch((err) => {
@@ -102,6 +101,7 @@ const OverSeas = () => {
       .get(`http://localhost:8080/api/sp500/month`)
       .then((res) => {
         setSp500(res.data.items);
+        console.log(res.data.items);
       })
       .catch((err) => {
         console.log(err);
@@ -168,7 +168,7 @@ const OverSeas = () => {
           <div className="sub">
             <span className="sub-value">
               {new Date(
-                nasdaq?.chart.result[0]?.timestamp[21] * 1000,
+                nasdaq?.chart.result[0]?.timestamp[18] * 1000,
               ).toLocaleDateString("ko-KR", { timeZone: "America/New_York" })}
             </span>
           </div>
@@ -228,7 +228,7 @@ const OverSeas = () => {
           <div className="sub">
             <span className="sub-value">
               {new Date(
-                sp500?.chart.result[0]?.timestamp[21] * 1000,
+                sp500?.chart.result[0]?.timestamp[18] * 1000,
               ).toLocaleDateString("ko-KR", { timeZone: "America/New_York" })}
             </span>
           </div>
@@ -287,7 +287,7 @@ const OverSeas = () => {
           <div className="sub">
             <span className="sub-value">
               {new Date(
-                dowjones?.chart.result[0]?.timestamp[21] * 1000,
+                dowjones?.chart.result[0]?.timestamp[18] * 1000,
               ).toLocaleDateString("ko-KR", { timeZone: "America/New_York" })}
             </span>
           </div>

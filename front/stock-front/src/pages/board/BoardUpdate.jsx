@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
 import {
   UpdateWrap,
   UpdateBox,
@@ -10,19 +10,20 @@ import {
   SubmitBtn,
   CancelBtn,
   Title,
-} from './BoardUpdate.style';
-import axios from 'axios';
-import { AuthContext } from '../../context/AuthContext';
-import { useNavigate, useParams } from 'react-router-dom';
+} from "./BoardUpdate.style";
+import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate, useParams } from "react-router-dom";
+import reisseToken from "../../api/reissueToken";
 
 const BoardUpdate = () => {
   const navi = useNavigate();
   const { auth } = useContext(AuthContext);
   const { boardNo } = useParams();
   const [form, setForm] = useState({
-    category: 'free',
-    title: '',
-    content: '',
+    category: "free",
+    title: "",
+    content: "",
   });
 
   const handleChange = (e) => {
@@ -32,7 +33,7 @@ const BoardUpdate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
+    reisseToken
       .put(`http://localhost:8080/api/board/update/${boardNo}`, form, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
@@ -40,10 +41,10 @@ const BoardUpdate = () => {
       })
       .then((res) => {
         console.log(res.data);
-        navi('/board');
+        navi("/board");
       })
       .catch((err) => {
-        console.log(err, '수정에러');
+        console.log(err, "수정에러");
       });
   };
   useEffect(() => {
@@ -57,7 +58,7 @@ const BoardUpdate = () => {
         });
       })
       .catch((err) => {
-        console.log('디테일조회오류');
+        console.log("디테일조회오류");
       });
   }, [boardNo]);
 

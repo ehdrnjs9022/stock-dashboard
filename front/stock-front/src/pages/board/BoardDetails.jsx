@@ -34,6 +34,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import reisseToken from "../../api/reissueToken";
 
 const BoardDetails = () => {
   const { auth } = useContext(AuthContext);
@@ -80,7 +81,7 @@ const BoardDetails = () => {
 
   const handleLike = (e) => {
     e.preventDefault();
-    axios
+    reisseToken
       .post(`http://localhost:8080/api/board/like/${boardNo}`, null, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
@@ -100,7 +101,7 @@ const BoardDetails = () => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    axios
+    reisseToken
       .delete(`http://localhost:8080/api/board/delete/${boardNo}`, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
@@ -119,7 +120,7 @@ const BoardDetails = () => {
   const handleInsertComment = (commentContent, parentCommentNo = null) => {
     if (!commentContent || !commentContent.trim()) return;
 
-    axios
+    reisseToken
       .post(
         `http://localhost:8080/api/board/insertComment/${boardNo}`,
         {
@@ -150,7 +151,7 @@ const BoardDetails = () => {
   };
 
   const handleUpdateComment = (commentNo) => {
-    axios
+    reisseToken
       .post(
         `http://localhost:8080/api/board/updateComment/${commentNo}`,
         {
@@ -174,7 +175,7 @@ const BoardDetails = () => {
   };
 
   const handleDeleteComment = (commentNo) => {
-    axios
+    reisseToken
       .delete(`http://localhost:8080/api/board/deleteComment/${commentNo}`, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
@@ -215,7 +216,7 @@ const BoardDetails = () => {
       <Content>{selectBoard.content}</Content>
 
       <ButtonWrap>
-        <BackBtn>목록</BackBtn>
+        <BackBtn onClick={() => navi(`/board`)}>목록</BackBtn>
         <EditBtn onClick={() => navi(`/board/update/${boardNo}`)}>수정</EditBtn>
         <DeleteBtn onClick={() => setShowDeleteModal(true)}>삭제</DeleteBtn>
       </ButtonWrap>

@@ -138,11 +138,20 @@ public class MainServiceImpl implements MainService{
 	        	    GlobalQuoteResponseDTO.class           // 응답 매핑할 클래스
 	        	);
 	        
-	        OverseasDTO dto = response.getBody().getGlobalQuote();
-	        result.add(dto);
+	        GlobalQuoteResponseDTO body = response.getBody();
+	        if(body != null && body.getGlobalQuote() != null) {
+	        	OverseasDTO dto  = body.getGlobalQuote();
+	        	
+	        	result.add(dto);
+	        }
+	        
+	        try {
+				Thread.sleep(1200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 	        
 		}
-		
 		
 		return result;
 		

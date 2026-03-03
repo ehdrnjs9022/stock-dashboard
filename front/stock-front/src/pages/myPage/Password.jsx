@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState } from "react";
 import {
   PageContainer,
   Box,
@@ -8,25 +8,26 @@ import {
   ButtonRow,
   PrimaryButton,
   SecondaryButton,
-} from './Password.style';
-import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+} from "./Password.style";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import reisseToken from "../../api/reissueToken";
 
 const Password = () => {
   const navi = useNavigate();
   const { auth, logout } = useContext(AuthContext);
-  const [password, setPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [newPasswordCheck, setNewPasswordCheck] = useState('');
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPasswordCheck, setNewPasswordCheck] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newPassword !== newPasswordCheck) {
-      alert('새 비밀번호가 일치하지 않습니다.');
+      alert("새 비밀번호가 일치하지 않습니다.");
       return;
     }
-    axios
+    reisseToken
       .put(
         `http://localhost:8080/api/password`,
         {
@@ -37,20 +38,20 @@ const Password = () => {
           headers: {
             Authorization: `Bearer ${auth.accessToken}`,
           },
-        }
+        },
       )
       .then((res) => {
         alert(res.data.message);
         logout();
         setTimeout(() => {
-          navi('/login');
+          navi("/login");
         }, 500);
       })
       .catch((err) => {
-        console.log('비밀번호변경오류');
+        console.log("비밀번호변경오류");
       });
   };
-  console.log('access:', auth.accessToken);
+  console.log("access:", auth.accessToken);
   return (
     <PageContainer>
       <Box>
@@ -79,7 +80,7 @@ const Password = () => {
 
         <ButtonRow>
           <PrimaryButton onClick={handleSubmit}>비밀번호 변경</PrimaryButton>
-          <SecondaryButton onClick={() => navi('/mypage')}>
+          <SecondaryButton onClick={() => navi("/mypage")}>
             취소
           </SecondaryButton>
         </ButtonRow>

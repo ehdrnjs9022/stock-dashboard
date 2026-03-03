@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   BoardWrap,
   BoardHeader,
@@ -11,23 +11,24 @@ import {
   Tr,
   Th,
   Td,
-} from './Board.style';
-import { useNavigate } from 'react-router-dom';
+} from "./Board.style";
+import reisseToken from "../../api/reissueToken";
+import { useNavigate } from "react-router-dom";
 
 const Board = () => {
-  const [category, setCategory] = useState('all');
+  const [category, setCategory] = useState("all");
   const [posts, setPosts] = useState([]);
   const navi = useNavigate();
 
   useEffect(() => {
-    axios
+    reisseToken
       .get(`http://localhost:8080/api/board?category=${category}`)
       .then((res) => {
         setPosts(res.data.items ?? []);
         console.log(res.data);
       })
       .catch((err) => {
-        console.error(err, '게시판에러');
+        console.error(err, "게시판에러");
       });
   }, [category]);
 
@@ -36,38 +37,38 @@ const Board = () => {
       {/* 상단 */}
       <BoardHeader>
         <Title>게시판</Title>
-        <WriteButton onClick={() => navi('/board/write')}>글쓰기</WriteButton>
+        <WriteButton onClick={() => navi("/board/write")}>글쓰기</WriteButton>
       </BoardHeader>
 
       {/* 카테고리 */}
       <CategoryWrap>
         <CatButton
-          active={category === 'all'}
-          onClick={() => setCategory('all')}
+          active={category === "all"}
+          onClick={() => setCategory("all")}
         >
           전체
         </CatButton>
         <CatButton
-          active={category === 'domestic'}
-          onClick={() => setCategory('domestic')}
+          active={category === "domestic"}
+          onClick={() => setCategory("domestic")}
         >
           국내
         </CatButton>
         <CatButton
-          active={category === 'overseas'}
-          onClick={() => setCategory('overseas')}
+          active={category === "overseas"}
+          onClick={() => setCategory("overseas")}
         >
           해외
         </CatButton>
         <CatButton
-          active={category === 'crypto'}
-          onClick={() => setCategory('crypto')}
+          active={category === "crypto"}
+          onClick={() => setCategory("crypto")}
         >
           코인
         </CatButton>
         <CatButton
-          active={category === 'free'}
-          onClick={() => setCategory('free')}
+          active={category === "free"}
+          onClick={() => setCategory("free")}
         >
           자유
         </CatButton>
@@ -102,7 +103,7 @@ const Board = () => {
             <Tr>
               <Td
                 colSpan={5}
-                style={{ textAlign: 'center', padding: '40px', color: '#777' }}
+                style={{ textAlign: "center", padding: "40px", color: "#777" }}
               >
                 게시글이 없습니다.
               </Td>

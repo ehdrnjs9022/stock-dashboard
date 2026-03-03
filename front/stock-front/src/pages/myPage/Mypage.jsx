@@ -33,6 +33,7 @@ import {
 } from "./Mypage.style";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
+import reisseToken from "../../api/reissueToken";
 
 const Mypage = () => {
   const navi = useNavigate();
@@ -63,7 +64,7 @@ const Mypage = () => {
 
   useEffect(() => {
     if (!auth.accessToken) return;
-    axios
+    reisseToken
       .get(`http://localhost:8080/api/profile/select`, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Container,
   LoginForm,
@@ -8,15 +8,15 @@ import {
   Label,
   Input,
   Button,
-} from './FindId.styles';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+} from "./FindId.styles";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FindId = () => {
   const navi = useNavigate();
   const [findInfo, setFindInfo] = useState({
-    email: '',
-    realName: '',
+    email: "",
+    realName: "",
   });
 
   const handleChange = (e) => {
@@ -31,7 +31,7 @@ const FindId = () => {
       .post(`http://localhost:8080/api/find-id`, findInfo)
       .then((res) => {
         alert(res.data.message);
-        navi('/login');
+        navi("/login");
       })
       .catch((err) => {
         alert(err.response.message);
