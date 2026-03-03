@@ -1,26 +1,20 @@
-/.metadata/
-/back/target/
-/back/build/
-/back/bin/
-/back/.metadata/
-/back/stock/.metadata/
-/back/.settings/
-/back/.classpath
-/back/.project
-/back/*.log
-/back/application.yml
-/back/src/main/resources/application.yml
+### BACKEND
 
-/front/node_modules/
-/front/build/
-/front/dist/
-/front/.vite/
-/front/node_modules/.vite
-/front/.env
-/front/.env.*.local
+/back/stock/bin/
+/back/stock/build/
+/back/stock/.gradle/
+/back/stock/src/main/resources/application.yml
 
+### FRONTEND
+
+/front/stock-front/node_modules/
+/front/stock-front/build/
+/front/stock-front/dist/
+/front/stock-front/.env
+/front/stock-front/.env.*.local
+
+### COMMON
 .idea/
 .vscode/
 .DS_Store
 Thumbs.db
-
