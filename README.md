@@ -72,3 +72,9 @@ React 기반의 인터랙티브 차트와 Spring Boot 백엔드, 여러 외부 A
 3. JWT 인증 문제
 
 - Axios 인터셉터 헤더 누락 버그 수정 → 안정적인 토큰 전달 구현
+
+## Blog
+
+개발 공부 과정과 프로젝트 배포 경험을 정리하고 있습니다.
+https://dongkwon-dev.tistory.com/
+
