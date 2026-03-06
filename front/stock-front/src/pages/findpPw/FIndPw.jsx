@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   Container,
   LoginForm,
@@ -8,14 +8,15 @@ import {
   Label,
   Input,
   Button,
-} from './FIndPw.styles';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+} from "./FIndPw.styles";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import api from "../../api/api";
 const FindPw = () => {
   const navi = useNavigate();
   const [findInfo, setFindInfo] = useState({
-    email: '',
-    userId: '',
+    email: "",
+    userId: "",
   });
 
   const handleChange = (e) => {
@@ -26,11 +27,11 @@ const FindPw = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`http://localhost:8080/api/find-pw`, findInfo)
+    api
+      .post(`/api/find-pw`, findInfo)
       .then((res) => {
         alert(res.data.message);
-        navi('/login');
+        navi("/login");
       })
       .catch((err) => {
         alert(err.response.message);

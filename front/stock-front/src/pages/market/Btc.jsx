@@ -8,7 +8,7 @@ import {
   InfoCard,
   DetailGrid,
   DetailItem,
-} from './Common.style';
+} from "./Common.style";
 import {
   Tooltip,
   LineChart,
@@ -17,20 +17,21 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
-} from 'recharts';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+} from "recharts";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import api from "../../api/api";
 
 const Btc = () => {
   const [monthData, setMonthData] = useState([]);
   const [selectedData, setSelectedData] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/crypto/month`)
+    api
+      .get(`/api/crypto/month`)
       .then((res) => {
         setMonthData(res.data.items || []); // 데이터 안전 처리
-        console.log('📦 응답데이터:', res.data.items);
+        console.log("📦 응답데이터:", res.data.items);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -59,7 +60,7 @@ const Btc = () => {
         <div className="price">
           {monthData[0]?.trade_price
             ? monthData[0].trade_price.toLocaleString()
-            : '-'}
+            : "-"}
         </div>
         <div className="sub positive">
           {(
@@ -85,7 +86,7 @@ const Btc = () => {
               <YAxis
                 tickFormatter={(v) => v.toLocaleString()}
                 tick={{ fontSize: 12 }}
-                domain={['auto', 'auto']}
+                domain={["auto", "auto"]}
               />
               <Tooltip
                 content={<CustomTooltip setSelectedData={setSelectedData} />}
@@ -109,25 +110,25 @@ const Btc = () => {
         <InfoCard>
           <h4>시가</h4>
           <div className="value">
-            {selectedData ? selectedData.opening_price.toLocaleString() : '-'}
+            {selectedData ? selectedData.opening_price.toLocaleString() : "-"}
           </div>
         </InfoCard>
         <InfoCard>
           <h4>고가</h4>
           <div className="value">
-            {selectedData ? selectedData.high_price.toLocaleString() : '-'}
+            {selectedData ? selectedData.high_price.toLocaleString() : "-"}
           </div>
         </InfoCard>
         <InfoCard>
           <h4>저가</h4>
           <div className="value">
-            {selectedData ? selectedData.low_price.toLocaleString() : '-'}
+            {selectedData ? selectedData.low_price.toLocaleString() : "-"}
           </div>
         </InfoCard>
         <InfoCard>
           <h4>종가</h4>
           <div className="value">
-            {selectedData ? selectedData.trade_price.toLocaleString() : '-'}
+            {selectedData ? selectedData.trade_price.toLocaleString() : "-"}
           </div>
         </InfoCard>
       </InfoGrid>
@@ -140,7 +141,7 @@ const Btc = () => {
             <span className="label">거래일</span>
             <span>
               {new Date(
-                selectedData ? selectedData.candle_date_time_kst : '_'
+                selectedData ? selectedData.candle_date_time_kst : "_",
               ).toLocaleString()}
             </span>
           </DetailItem>
@@ -149,15 +150,15 @@ const Btc = () => {
             <span
               className={
                 selectedData?.trade_price > selectedData?.prev_closing_price
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData
                 ? selectedData?.trade_price > selectedData?.prev_closing_price
-                  ? '▲ 상승'
-                  : '▼ 하락'
-                : '-'}
+                  ? "▲ 상승"
+                  : "▼ 하락"
+                : "-"}
             </span>
           </DetailItem>
           <DetailItem>
@@ -165,15 +166,15 @@ const Btc = () => {
             <span
               className={
                 selectedData?.trade_price - selectedData?.prev_closing_price > 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData
                 ? (
                     selectedData?.trade_price - selectedData?.prev_closing_price
                   ).toLocaleString()
-                : '_'}
+                : "_"}
             </span>
           </DetailItem>
           <DetailItem>
@@ -183,8 +184,8 @@ const Btc = () => {
                 (selectedData?.trade_price - selectedData?.prev_closing_price) /
                   selectedData?.prev_closing_price >
                 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData
@@ -194,7 +195,7 @@ const Btc = () => {
                       selectedData?.prev_closing_price) *
                     100
                   ).toFixed(2)
-                : '_'}
+                : "_"}
               %
             </span>
           </DetailItem>

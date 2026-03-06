@@ -15,6 +15,7 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import reisseToken from "../../api/reissueToken";
+import api from "../../api/api";
 
 const BoardUpdate = () => {
   const navi = useNavigate();
@@ -34,7 +35,7 @@ const BoardUpdate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     reisseToken
-      .put(`http://localhost:8080/api/board/update/${boardNo}`, form, {
+      .put(`/api/board/update/${boardNo}`, form, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
@@ -48,8 +49,8 @@ const BoardUpdate = () => {
       });
   };
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/board/details/${boardNo}`)
+    api
+      .get(`/api/board/details/${boardNo}`)
       .then((res) => {
         setForm({
           category: res.data.items.category,

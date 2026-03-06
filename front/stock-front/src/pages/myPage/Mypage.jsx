@@ -65,7 +65,7 @@ const Mypage = () => {
   useEffect(() => {
     if (!auth.accessToken) return;
     reisseToken
-      .get(`http://localhost:8080/api/profile/select`, {
+      .get(`/api/profile/select`, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
@@ -84,7 +84,7 @@ const Mypage = () => {
     formData.append("file", selectedFile);
 
     axios
-      .post(`http://localhost:8080/api/profile/upload`, formData, {
+      .post(`/api/profile/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${auth.accessToken}`,
@@ -104,7 +104,7 @@ const Mypage = () => {
   useEffect(() => {
     if (!auth.accessToken) return;
     axios
-      .get(`http://localhost:8080/api/info`, {
+      .get(`/api/info`, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
@@ -121,7 +121,7 @@ const Mypage = () => {
   useEffect(() => {
     if (!auth.accessToken) return;
     axios
-      .get(`http://localhost:8080/api/activity/select`, {
+      .get(`/api/activity/select`, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },

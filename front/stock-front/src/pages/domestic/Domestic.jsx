@@ -8,6 +8,8 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
+api;
 
 const Domestic = () => {
   const [stock, setStock] = useState([]);
@@ -34,8 +36,8 @@ const Domestic = () => {
   ];
 
   useEffect(() => {
-    axios
-      .post(`http://localhost:8080/api/domesticDetails`, codes)
+    api
+      .post(`/api/domesticDetails`, codes)
       .then((res) => {
         setStock(res.data.items || []);
       })
@@ -45,8 +47,8 @@ const Domestic = () => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/kospi`)
+    api
+      .get(`/api/kospi`)
       .then((res) => {
         setKospi(res.data.items);
         console.log(res.data.items);
@@ -57,8 +59,8 @@ const Domestic = () => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/kosdaq`)
+    api
+      .get(`/api/kosdaq`)
       .then((res) => {
         setKosdaq(res.data.items);
       })

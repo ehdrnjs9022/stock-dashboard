@@ -35,6 +35,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import reisseToken from "../../api/reissueToken";
+import api from "../../api/api";
 
 const BoardDetails = () => {
   const { auth } = useContext(AuthContext);
@@ -52,20 +53,20 @@ const BoardDetails = () => {
   const [updateText, setUpdateText] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/board/details/${boardNo}`)
+    api
+      .get(`/api/board/details/${boardNo}`)
       .then((res) => {
         setSelectBoard(res.data.items);
       })
-      .catch(() => {
-        console.log("디테일조회오류");
+      .catch((err) => {
+        console.log(err);
       });
   }, [boardNo]);
 
   // 댓글 목록 새로고침 함수 (필요시 재사용 가능)
   const fetchComments = () => {
-    axios
-      .get(`http://localhost:8080/api/board/selectComment/${boardNo}`)
+    api
+      .get(`/api/board/selectComment/${boardNo}`)
       .then((res) => {
         setCommentList(res.data.items);
         console.log(res.data.items);
@@ -82,7 +83,7 @@ const BoardDetails = () => {
   const handleLike = (e) => {
     e.preventDefault();
     reisseToken
-      .post(`http://localhost:8080/api/board/like/${boardNo}`, null, {
+      .post(`/api/board/like/${boardNo}`, null, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
@@ -102,7 +103,7 @@ const BoardDetails = () => {
   const handleDelete = (e) => {
     e.preventDefault();
     reisseToken
-      .delete(`http://localhost:8080/api/board/delete/${boardNo}`, {
+      .delete(`/api/board/delete/${boardNo}`, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
@@ -122,7 +123,7 @@ const BoardDetails = () => {
 
     reisseToken
       .post(
-        `http://localhost:8080/api/board/insertComment/${boardNo}`,
+        `/api/board/insertComment/${boardNo}`,
         {
           content: commentContent,
           parentCommentNo: parentCommentNo,
@@ -153,7 +154,7 @@ const BoardDetails = () => {
   const handleUpdateComment = (commentNo) => {
     reisseToken
       .post(
-        `http://localhost:8080/api/board/updateComment/${commentNo}`,
+        `/api/board/updateComment/${commentNo}`,
         {
           content: updateText,
         },
@@ -176,7 +177,7 @@ const BoardDetails = () => {
 
   const handleDeleteComment = (commentNo) => {
     reisseToken
-      .delete(`http://localhost:8080/api/board/deleteComment/${commentNo}`, {
+      .delete(`/api/board/deleteComment/${commentNo}`, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },

@@ -8,7 +8,7 @@ import {
   InfoCard,
   DetailGrid,
   DetailItem,
-} from './Common.style';
+} from "./Common.style";
 import {
   Tooltip,
   LineChart,
@@ -17,9 +17,10 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
-} from 'recharts';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+} from "recharts";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import api from "../../api/api";
 
 const Kosdaq = () => {
   const [monthData, setMonthData] = useState([]);
@@ -34,8 +35,8 @@ const Kosdaq = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/kosdaq/month`)
+    api
+      .get(`/api/kosdaq/month`)
       .then((res) => {
         const result = res.data.items.chart.result[0] || [];
         const indicators = result.indicators.quote[0] || [];
@@ -49,7 +50,7 @@ const Kosdaq = () => {
         const meta = result.meta || [];
 
         const chartData = timestamps.map((t, i) => ({
-          date: new Date(t * 1000).toLocaleDateString('ko-KR'),
+          date: new Date(t * 1000).toLocaleDateString("ko-KR"),
           open: open[i],
           close: close[i],
           high: high[i],
@@ -81,14 +82,14 @@ const Kosdaq = () => {
         </div>
         <div className="price">{monthData[17]?.regularMarketPrice}</div>
         <div className="sub positive">
-          {' '}
+          {" "}
           {Number(
             (
               ((monthData[17]?.regularMarketPrice -
                 monthData[17]?.chartPreviousClose) /
                 monthData[17]?.chartPreviousClose) *
               100
-            ).toFixed(2)
+            ).toFixed(2),
           ).toLocaleString()}
           %
         </div>
@@ -106,7 +107,7 @@ const Kosdaq = () => {
             <YAxis
               tickFormatter={(v) => v.toLocaleString()}
               tick={{ fontSize: 12 }}
-              domain={['auto', 'auto']}
+              domain={["auto", "auto"]}
             />
             <Tooltip
               content={<CustomTooltip setSelectedData={setSelectedData} />}
@@ -129,25 +130,25 @@ const Kosdaq = () => {
         <InfoCard>
           <h4>시가</h4>
           <div className="value">
-            {selectedData ? (selectedData?.open).toFixed(2) : '-'}
+            {selectedData ? (selectedData?.open).toFixed(2) : "-"}
           </div>
         </InfoCard>
         <InfoCard>
           <h4>고가</h4>
           <div className="value">
-            {selectedData ? (selectedData?.high).toFixed(2) : '-'}
+            {selectedData ? (selectedData?.high).toFixed(2) : "-"}
           </div>
         </InfoCard>
         <InfoCard>
           <h4>저가</h4>
           <div className="value">
-            {selectedData ? (selectedData?.low).toFixed(2) : '-'}
+            {selectedData ? (selectedData?.low).toFixed(2) : "-"}
           </div>
         </InfoCard>
         <InfoCard>
           <h4>종가</h4>
           <div className="value">
-            {selectedData ? (selectedData?.close).toFixed(2) : '-'}
+            {selectedData ? (selectedData?.close).toFixed(2) : "-"}
           </div>
         </InfoCard>
       </InfoGrid>
@@ -165,13 +166,13 @@ const Kosdaq = () => {
             <span
               className={
                 selectedData?.close - selectedData?.prevClose > 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData?.close - selectedData?.prevClose > 0
-                ? '▲ 상승'
-                : '▼ 하락'}
+                ? "▲ 상승"
+                : "▼ 하락"}
             </span>
           </DetailItem>
           <DetailItem>
@@ -179,8 +180,8 @@ const Kosdaq = () => {
             <span
               className={
                 selectedData?.close - selectedData?.prevClose > 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {Number(selectedData?.close - selectedData?.prevClose)
@@ -195,8 +196,8 @@ const Kosdaq = () => {
                 (selectedData?.close - selectedData?.prevClose) /
                   selectedData?.prevClose >
                 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {(

@@ -29,7 +29,7 @@ const Password = () => {
     }
     reisseToken
       .put(
-        `http://localhost:8080/api/password`,
+        `/api/password`,
         {
           password: password,
           newPassword: newPassword,

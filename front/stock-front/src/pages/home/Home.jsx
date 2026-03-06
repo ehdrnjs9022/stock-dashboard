@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import he from "he";
+import api from "../../api/api";
 
 const Home = () => {
   const [news, setNews] = useState([]);
@@ -24,8 +25,8 @@ const Home = () => {
 
   // 📰 뉴스
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/news`)
+    api
+      .get(`/api/news`)
       .then((res) => setNews(res.data.items || []))
       .catch(console.error);
   }, []);
@@ -45,8 +46,8 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    axios
-      .post(`http://localhost:8080/api/domestic`, codes)
+    api
+      .post(`/api/domestic`, codes)
       .then((res) => {
         setStock(res.data.items || []);
         console.log(res.data);
@@ -58,8 +59,8 @@ const Home = () => {
 
   // 🌍 해외 증시 요약
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/overseas", {
+    api
+      .get("/api/overseas", {
         params: {
           symbol: [
             "AAPL",
@@ -92,8 +93,8 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/nasdaq/month`)
+    api
+      .get(`/api/nasdaq/month`)
       .then((res) => {
         setNasdaq(res.data.items);
         console.log(res.data.items);
@@ -105,8 +106,8 @@ const Home = () => {
 
   // 📈 KOSPI 지수
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/kospi`)
+    api
+      .get(`/api/kospi`)
       .then((res) => {
         setKospi(res.data.items);
       })
@@ -117,8 +118,8 @@ const Home = () => {
 
   // ₿ 비트코인
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/crypto`)
+    api
+      .get(`/api/crypto`)
       .then((res) => {
         const btcData = res.data.items.find((c) => c.market === "KRW-BTC");
         setBtc(btcData);

@@ -1,8 +1,8 @@
 // Search.jsx
-import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import he from 'he';
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import he from "he";
 import {
   SearchWrap,
   Title,
@@ -15,12 +15,13 @@ import {
   EmptyBox,
   PageButton,
   PaginationWrap,
-} from './Search.styles';
+} from "./Search.styles";
+import api from "../../api/api";
 
 const Search = () => {
   const [results, setResults] = useState([]);
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get('query');
+  const query = new URLSearchParams(location.search).get("query");
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const display = 5;
@@ -31,13 +32,13 @@ const Search = () => {
   const endPage = Math.min(startPage + groupSize - 1, totalPages);
   const visiblePages = Array.from(
     { length: endPage - startPage + 1 },
-    (_, i) => startPage + i
+    (_, i) => startPage + i,
   );
 
   const cleanText = (str) => {
-    if (!str) return '';
+    if (!str) return "";
     // 1. 태그 제거
-    const noTag = str.replace(/<[^>]+>/g, '');
+    const noTag = str.replace(/<[^>]+>/g, "");
     // 2. 엔티티 변환
     return he.decode(noTag);
   };
@@ -45,8 +46,8 @@ const Search = () => {
   useEffect(() => {
     if (!query) return;
     window.scrollTo(0, 0);
-    axios
-      .get(`http://localhost:8080/api/search`, {
+    api
+      .get(`/api/search`, {
         params: { query, display, start: (page - 1) * display + 1 },
       })
       .then((res) => {
@@ -85,7 +86,7 @@ const Search = () => {
             {visiblePages.map((num) => (
               <PageButton
                 key={num}
-                className={page === num ? 'active' : ''}
+                className={page === num ? "active" : ""}
                 onClick={() => setPage(num)}
               >
                 {num}

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   PageContainer,
   DeleteBox,
@@ -8,13 +8,13 @@ import {
   ButtonRow,
   DangerButton,
   CancelButton,
-} from './Delete.style';
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import reisseToken from '../../api/reissueToken';
+} from "./Delete.style";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import reisseToken from "../../api/reissueToken";
 const Delete = () => {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const { auth } = useContext(AuthContext);
   const navi = useNavigate();
 
@@ -22,12 +22,12 @@ const Delete = () => {
     e.preventDefault();
 
     reisseToken
-      .post(`http://localhost:8080/api/delete`, { password })
+      .post(`/api/delete`, { password })
 
       .then((res) => {
         alert(res.data.message);
         setTimeout(() => {
-          navi('/login');
+          navi("/login");
         }, 0.5);
       })
       .catch((err) => {
@@ -55,7 +55,7 @@ const Delete = () => {
 
         <ButtonRow>
           <DangerButton onClick={handleSubmit}>탈퇴하기</DangerButton>
-          <CancelButton onClick={() => navi('/mypage')}>취소</CancelButton>
+          <CancelButton onClick={() => navi("/mypage")}>취소</CancelButton>
         </ButtonRow>
       </DeleteBox>
     </PageContainer>

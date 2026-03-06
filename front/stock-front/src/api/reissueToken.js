@@ -1,7 +1,8 @@
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const reisseToken = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: API_URL,
 });
 
 reisseToken.interceptors.request.use((config) => {
@@ -31,7 +32,7 @@ reisseToken.interceptors.response.use(
       const refreshToken = sessionStorage.getItem("refreshToken");
 
       return axios
-        .post(`http://localhost:8080/api/reissue`, {
+        .post(`${API_URL}/api/reissue`, {
           refreshToken: refreshToken,
         })
 
@@ -49,7 +50,6 @@ reisseToken.interceptors.response.use(
         })
         .catch(() => {
           sessionStorage.clear();
-          window.location.href = "/login";
         });
     }
 

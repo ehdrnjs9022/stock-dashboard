@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     const refreshToken = sessionStorage.getItem("refreshToken");
     if (refreshToken) {
       axios
-        .post(`http://localhost:8080/api/logout`, {
+        .post(`/api/logout`, {
           refreshToken: refreshToken,
         })
 

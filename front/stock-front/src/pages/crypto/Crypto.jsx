@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   Container,
   Banner,
@@ -6,18 +6,19 @@ import {
   IndexWrap,
   IndexCard,
   Table,
-} from './Crypto.style';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+} from "./Crypto.style";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
 
 const Crypto = () => {
   const [ticker, setTicker] = useState([]);
-  const [selectedMarket, setSelectedMarket] = useState('KRW'); // 기본값 KRW
+  const [selectedMarket, setSelectedMarket] = useState("KRW"); // 기본값 KRW
   const navi = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/crypto`)
+    api
+      .get(`/api/crypto`)
       .then((res) => {
         setTicker(res.data.items);
         console.log(res.data.items);
@@ -35,37 +36,38 @@ const Crypto = () => {
 
       {/* 마켓 선택 탭 */}
       <MarketTabs>
-        <button onClick={() => setSelectedMarket('KRW')}>KRW</button>
-        <button onClick={() => setSelectedMarket('BTC')}>BTC</button>
-        <button onClick={() => setSelectedMarket('USDT')}>USDT</button>
+        <button onClick={() => setSelectedMarket("KRW")}>KRW</button>
+        <button onClick={() => setSelectedMarket("BTC")}>BTC</button>
+        <button onClick={() => setSelectedMarket("USDT")}>USDT</button>
       </MarketTabs>
 
       {/* 대표 코인 카드 */}
       <IndexWrap>
         {/* 비트코인 */}
         <IndexCard
-          onClick={() => navi('/market/btc')}
-          style={{ cursor: 'pointer' }}
+          onClick={() => navi("/market/btc")}
+          style={{ cursor: "pointer" }}
         >
           <h2>비트코인 (BTC)</h2>
           <div className="value">
             {ticker
               .find(
-                (coin) => coin.market && coin.market === `${selectedMarket}-BTC`
+                (coin) =>
+                  coin.market && coin.market === `${selectedMarket}-BTC`,
               )
-              ?.trade_price?.toLocaleString() || '_'}{' '}
+              ?.trade_price?.toLocaleString() || "_"}{" "}
             {selectedMarket}
           </div>
           <div
             className={
               ticker[0]?.signed_change_rate > 0
-                ? 'positive'
+                ? "positive"
                 : ticker[0]?.signed_change_rate < 0
-                ? 'negative'
-                : '_'
+                  ? "negative"
+                  : "_"
             }
           >
-            24시간 변화율{' '}
+            24시간 변화율{" "}
             {(
               (ticker.find((coin) => coin.market === `${selectedMarket}-BTC`)
                 ?.signed_change_rate ?? 0) * 100
@@ -73,44 +75,44 @@ const Crypto = () => {
             %
           </div>
           <div className="sub">
-            거래량{' '}
+            거래량{" "}
             {ticker.find((coin) => coin.market === `${selectedMarket}-BTC`)
               ? Number(
                   ticker
                     .find((coin) => coin.market === `${selectedMarket}-BTC`)
-                    ?.acc_trade_volume_24h.toFixed(0)
+                    ?.acc_trade_volume_24h.toFixed(0),
                 ).toLocaleString()
-              : '_'}
+              : "_"}
           </div>
           <div>
-            {new Date(ticker[0]?.trade_timestamp).toLocaleDateString('ko-KR', {
-              timeZone: 'UTC',
+            {new Date(ticker[0]?.trade_timestamp).toLocaleDateString("ko-KR", {
+              timeZone: "UTC",
             })}
           </div>
         </IndexCard>
 
         {/* 이더리움 */}
         <IndexCard
-          onClick={() => navi('/market/eth')}
-          style={{ cursor: 'pointer' }}
+          onClick={() => navi("/market/eth")}
+          style={{ cursor: "pointer" }}
         >
           <h2>이더리움 (ETH)</h2>
           <div className="value">
             {ticker
               .find((coin) => coin.market === `${selectedMarket}-ETH`)
-              ?.trade_price?.toLocaleString() || '_'}{' '}
+              ?.trade_price?.toLocaleString() || "_"}{" "}
             {selectedMarket}
           </div>
           <div
             className={
               ticker[0]?.signed_change_rate > 0
-                ? 'positive'
+                ? "positive"
                 : ticker[0]?.signed_change_rate < 0
-                ? 'negative'
-                : '_'
+                  ? "negative"
+                  : "_"
             }
           >
-            24시간 변화율{' '}
+            24시간 변화율{" "}
             {(
               (ticker.find((coin) => coin.market === `${selectedMarket}-ETH`)
                 ?.change_rate ?? 0) * 100
@@ -118,18 +120,18 @@ const Crypto = () => {
             %
           </div>
           <div className="sub">
-            거래량{' '}
+            거래량{" "}
             {ticker.find((coin) => coin.market === `${selectedMarket}-ETH`)
               ? Number(
                   ticker
                     .find((coin) => coin.market === `${selectedMarket}-ETH`)
-                    ?.acc_trade_volume_24h.toFixed(0)
+                    ?.acc_trade_volume_24h.toFixed(0),
                 ).toLocaleString()
-              : '_'}
+              : "_"}
           </div>
           <div>
-            {new Date(ticker[0]?.trade_timestamp).toLocaleDateString('ko-KR', {
-              timeZone: 'UTC',
+            {new Date(ticker[0]?.trade_timestamp).toLocaleDateString("ko-KR", {
+              timeZone: "UTC",
             })}
           </div>
         </IndexCard>
@@ -151,7 +153,7 @@ const Crypto = () => {
             <tr>
               <td
                 colSpan="5"
-                style={{ textAlign: 'center', color: '#777', padding: '25px' }}
+                style={{ textAlign: "center", color: "#777", padding: "25px" }}
               >
                 데이터 로딩 중...
               </td>
@@ -163,15 +165,15 @@ const Crypto = () => {
               .map((coin) => (
                 <tr key={coin.market}>
                   <td>{coin.korean_name}</td>
-                  <td>{coin.trade_price?.toLocaleString() || '-'}</td>
-                  <td>{coin.change_price?.toLocaleString() || '-'}</td>
+                  <td>{coin.trade_price?.toLocaleString() || "-"}</td>
+                  <td>{coin.change_price?.toLocaleString() || "-"}</td>
                   <td
                     className={
                       coin.signed_change_rate > 0
-                        ? 'positive'
+                        ? "positive"
                         : coin.signed_change_rate < 0
-                        ? 'negative'
-                        : ''
+                          ? "negative"
+                          : ""
                     }
                   >
                     {(coin.signed_change_rate * 100).toFixed(2)}%
@@ -179,9 +181,9 @@ const Crypto = () => {
                   <td>
                     {coin.acc_trade_price_24h
                       ? `${Number(
-                          coin.acc_trade_price_24h.toFixed(0)
+                          coin.acc_trade_price_24h.toFixed(0),
                         ).toLocaleString()} ${selectedMarket}`
-                      : '-'}
+                      : "-"}
                   </td>
                 </tr>
               ))

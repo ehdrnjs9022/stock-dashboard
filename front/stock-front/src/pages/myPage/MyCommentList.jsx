@@ -12,6 +12,7 @@ import {
   CommentDate,
 } from "./MyCommentList.style";
 import axios from "axios";
+import reisseToken from "../../api/reissueToken";
 
 const MyCommentList = () => {
   const { auth } = useContext(AuthContext);
@@ -21,8 +22,8 @@ const MyCommentList = () => {
   useEffect(() => {
     if (!auth.accessToken) return;
 
-    axios
-      .get(`http://localhost:8080/api/comment/select`, {
+    reisseToken
+      .get(`/api/comment/select`, {
         headers: { Authorization: `Bearer ${auth.accessToken}` },
       })
       .then((res) => {

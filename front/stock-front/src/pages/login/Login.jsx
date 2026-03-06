@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState } from "react";
 import {
   Container,
   LoginForm,
@@ -9,17 +9,18 @@ import {
   Input,
   Button,
   ButtonGroup,
-} from './login.styles';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
-import axios from 'axios';
+} from "./login.styles";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
+import api from "../../api/api";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
   const navi = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
-    userId: '',
-    password: '',
+    userId: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -29,8 +30,8 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`http://localhost:8080/api/login`, loginInfo)
+    api
+      .post(`/api/login`, loginInfo)
       .then((res) => {
         const data = res.data.items;
 
@@ -40,11 +41,11 @@ const Login = () => {
           data.realName,
           data.email,
           data.accessToken,
-          data.refreshToken
+          data.refreshToken,
         );
 
         alert(res.data.message);
-        navi('/');
+        navi("/");
       })
       .catch((err) => {
         console.log(err);
@@ -85,7 +86,7 @@ const Login = () => {
             <Button
               type="button"
               onClick={() => {
-                navi('/signUp');
+                navi("/signUp");
               }}
             >
               회원가입
@@ -93,7 +94,7 @@ const Login = () => {
             <Button
               type="button"
               onClick={() => {
-                navi('/findId');
+                navi("/findId");
               }}
             >
               아이디 찾기
@@ -101,7 +102,7 @@ const Login = () => {
             <Button
               type="button"
               onClick={() => {
-                navi('/findpw');
+                navi("/findpw");
               }}
             >
               비밀번호 찾기

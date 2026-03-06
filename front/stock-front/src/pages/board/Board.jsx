@@ -22,7 +22,7 @@ const Board = () => {
 
   useEffect(() => {
     reisseToken
-      .get(`http://localhost:8080/api/board?category=${category}`)
+      .get(`/api/board?category=${category}`)
       .then((res) => {
         setPosts(res.data.items ?? []);
         console.log(res.data);

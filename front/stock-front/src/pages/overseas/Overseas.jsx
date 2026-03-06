@@ -8,6 +8,7 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
 
 const OverSeas = () => {
   const [overSeas, setOverSeas] = useState([]);
@@ -19,8 +20,8 @@ const OverSeas = () => {
   const navi = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/kospi`)
+    api
+      .get(`/api/kospi`)
       .then((res) => {
         setKospi(res.data.items);
       })
@@ -30,8 +31,8 @@ const OverSeas = () => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/kosdaq`)
+    api
+      .get(`/api/kosdaq`)
       .then((res) => {
         setKosdaq(res.data.items);
       })
@@ -41,8 +42,8 @@ const OverSeas = () => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/overseas`, {
+    api
+      .get(`/api/overseas`, {
         params: {
           symbol: [
             "AAPL",
@@ -76,8 +77,8 @@ const OverSeas = () => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/nasdaq/month`)
+    api
+      .get(`/api/nasdaq/month`)
       .then((res) => {
         setNasdaq(res.data.items);
         console.log(res.data.items);
@@ -87,8 +88,8 @@ const OverSeas = () => {
       });
   }, []);
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/dowjones/month`)
+    api
+      .get(`/api/dowjones/month`)
       .then((res) => {
         setDowjones(res.data.items);
       })
@@ -97,8 +98,8 @@ const OverSeas = () => {
       });
   }, []);
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/sp500/month`)
+    api
+      .get(`/api/sp500/month`)
       .then((res) => {
         setSp500(res.data.items);
         console.log(res.data.items);

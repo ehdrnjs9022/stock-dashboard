@@ -48,16 +48,16 @@ public class SecurityConfigure {
 						   "/api/profile/upload"
 							 ).authenticated();
 				   request.requestMatchers(HttpMethod.POST,
-						   "/api/find-id",
-						   "/api/find-pw",
-						   "/api/verifyCode",	
-						   "/api/email-send",
-						   "/api/logout",
-						   "/api/login",
-						   "/api/signup",
-						   "/api/reissue",
-						   "/api/domestic",
-						   "/api/domesticDetails"
+						   "/api/find-id/**",
+						   "/api/find-pw/**",
+						   "/api/verifyCode/**",	
+						   "/api/email-send/**",
+						   "/api/logout/**",
+						   "/api/login/**",
+						   "/api/signup/**",
+						   "/api/reissue/**",
+						   "/api/domestic/**",
+						   "/api/domesticDetails/**"
 						   ).permitAll();
 				  
 				   request.requestMatchers(HttpMethod.PUT, 
@@ -103,20 +103,21 @@ public class SecurityConfigure {
 	}
 	
 	
-	 @Bean
-	    public CorsConfigurationSource corsConfigurationSource() {
-	        CorsConfiguration configuration = new CorsConfiguration();
-	       
-	        configuration.addAllowedOrigin("http://localhost:5173"); 
-	        configuration.addAllowedMethod("*"); 
-	        configuration.addAllowedHeader("*");
-	        configuration.setAllowCredentials(true);
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
 
-	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	        source.registerCorsConfiguration("/**", configuration);
-	        return source;
-	    }
-	
+	    CorsConfiguration configuration = new CorsConfiguration();
+
+	    configuration.addAllowedOriginPattern("*");
+	    configuration.addAllowedMethod("*");
+	    configuration.addAllowedHeader("*");
+	    configuration.setAllowCredentials(true);
+
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", configuration);
+
+	    return source;
+	}
 	
 	
 }

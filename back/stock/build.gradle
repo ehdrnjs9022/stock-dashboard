@@ -42,7 +42,6 @@ dependencies {
 
     // DB
     runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
-    implementation 'mysql:mysql-connector-java:8.1.0'
 
     // AWS SDK
     implementation platform('software.amazon.awssdk:bom:2.20.0')

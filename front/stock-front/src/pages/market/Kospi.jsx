@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   Container,
   Title,
@@ -9,7 +9,7 @@ import {
   InfoCard,
   DetailGrid,
   DetailItem,
-} from './Common.style';
+} from "./Common.style";
 import {
   Tooltip,
   LineChart,
@@ -18,8 +18,9 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
-} from 'recharts';
-import axios from 'axios';
+} from "recharts";
+import axios from "axios";
+import api from "../../api/api";
 
 const Kospi = () => {
   const [monthData, setMonthData] = useState([]);
@@ -34,8 +35,8 @@ const Kospi = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/kospi/month`)
+    api
+      .get(`/api/kospi/month`)
       .then((res) => {
         const result = res.data.items.chart.result[0] || [];
         const indicators = result.indicators.quote[0] || [];
@@ -49,7 +50,7 @@ const Kospi = () => {
         const meta = result.meta || [];
 
         const chartData = timestamps.map((t, i) => ({
-          date: new Date(t * 1000).toLocaleDateString('ko-KR'),
+          date: new Date(t * 1000).toLocaleDateString("ko-KR"),
           open: open[i],
           close: close[i],
           high: high[i],
@@ -81,14 +82,14 @@ const Kospi = () => {
           {monthData[20]?.regularMarketPrice.toFixed(2)}
         </div>
         <div className="sub positive">
-          {' '}
+          {" "}
           {Number(
             (
               ((monthData[20]?.regularMarketPrice -
                 monthData[20]?.chartPreviousClose) /
                 monthData[20]?.chartPreviousClose) *
               100
-            ).toFixed(2)
+            ).toFixed(2),
           ).toLocaleString()}
           %
         </div>
@@ -111,7 +112,7 @@ const Kospi = () => {
             <YAxis
               tickFormatter={(v) => v.toLocaleString()}
               tick={{ fontSize: 12 }}
-              domain={['auto', 'auto']}
+              domain={["auto", "auto"]}
             />
             <Tooltip
               content={<CustomTooltip setSelectedData={setSelectedData} />}
@@ -134,25 +135,25 @@ const Kospi = () => {
         <InfoCard>
           <h4>시가</h4>
           <div className="value">
-            {selectedData ? selectedData.open.toFixed(2) : '_'}
+            {selectedData ? selectedData.open.toFixed(2) : "_"}
           </div>
         </InfoCard>
         <InfoCard>
           <h4>고가</h4>
           <div className="value">
-            {selectedData ? selectedData.high.toFixed(2) : '_'}
+            {selectedData ? selectedData.high.toFixed(2) : "_"}
           </div>
         </InfoCard>
         <InfoCard>
           <h4>저가</h4>
           <div className="value">
-            {selectedData ? selectedData.low.toFixed(2) : '_'}
+            {selectedData ? selectedData.low.toFixed(2) : "_"}
           </div>
         </InfoCard>
         <InfoCard>
           <h4>종가</h4>
           <div className="value">
-            {selectedData ? selectedData.close.toFixed(2) : '_'}
+            {selectedData ? selectedData.close.toFixed(2) : "_"}
           </div>
         </InfoCard>
       </InfoGrid>
@@ -164,8 +165,8 @@ const Kospi = () => {
           <DetailItem>
             <span className="label">거래일</span>
             <span className="value">
-              {' '}
-              {selectedData ? selectedData.date : '_'}
+              {" "}
+              {selectedData ? selectedData.date : "_"}
             </span>
           </DetailItem>
           <DetailItem>
@@ -173,15 +174,15 @@ const Kospi = () => {
             <span
               className={
                 selectedData?.close - selectedData?.prevClose > 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData
                 ? selectedData.close - selectedData.prevClose > 0
-                  ? '▲ 상승'
-                  : '▼ 하락'
-                : '-'}
+                  ? "▲ 상승"
+                  : "▼ 하락"
+                : "-"}
             </span>
           </DetailItem>
           <DetailItem>
@@ -189,13 +190,13 @@ const Kospi = () => {
             <span
               className={
                 selectedData?.close - selectedData?.prevClose > 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData
                 ? (selectedData.close - selectedData.prevClose).toFixed(2)
-                : '-'}
+                : "-"}
             </span>
           </DetailItem>
           <DetailItem>
@@ -205,8 +206,8 @@ const Kospi = () => {
                 (selectedData?.close - selectedData?.prevClose) /
                   selectedData?.prevClose >
                 0
-                  ? 'positive'
-                  : 'negative'
+                  ? "positive"
+                  : "negative"
               }
             >
               {selectedData
@@ -215,7 +216,7 @@ const Kospi = () => {
                       selectedData.prevClose) *
                     100
                   ).toFixed(2)
-                : '_'}
+                : "_"}
               %
             </span>
           </DetailItem>

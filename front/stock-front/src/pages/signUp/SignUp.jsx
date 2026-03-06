@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Container,
   SignUpForm,
@@ -11,22 +11,23 @@ import {
   EmailInput,
   EmailFormGroup,
   EmailButton,
-} from './SignUp.styles';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+} from "./SignUp.styles";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
 const SignUp = () => {
-  const [name, setName] = useState('');
-  const [nickName, setNickName] = useState('');
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [code, setCode] = useState('');
+  const [name, setName] = useState("");
+  const [nickName, setNickName] = useState("");
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
   const navi = useNavigate();
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`http://localhost:8080/api/signup`, {
+    api
+      .post(`/api/signup`, {
         realName: name,
         nickName: nickName,
         userId: userId,
@@ -35,19 +36,19 @@ const SignUp = () => {
       })
       .then((res) => {
         alert(res.data.message);
-        navi('/');
+        navi("/");
         console.log(res.data.items);
       })
       .catch((err) => {
-        console.log(err, '회원가입오류');
+        console.log(err, "회원가입오류");
       });
   };
 
   const handleEmail = (e) => {
     e.preventDefault();
-    alert('인증번호 전송');
-    axios
-      .post(`http://localhost:8080/api/email-send`, {
+    alert("인증번호 전송");
+    api
+      .post(`/api/email-send`, {
         email: email,
       })
       .then((res) => {
@@ -55,14 +56,14 @@ const SignUp = () => {
         console.log(res.data.items);
       })
       .catch((err) => {
-        console.log(err, '이메일보내기오류');
+        console.log(err, "이메일보내기오류");
       });
   };
 
   const handelCode = (e) => {
     e.preventDefault();
-    axios
-      .post(`http://localhost:8080/api/verifyCode`, {
+    api
+      .post(`/api/verifyCode`, {
         email: email,
         code: code,
       })
@@ -72,7 +73,7 @@ const SignUp = () => {
       })
       .catch((err) => {
         alert(err.response.data);
-        console.log('코드인증오류');
+        console.log("코드인증오류");
       });
   };
 

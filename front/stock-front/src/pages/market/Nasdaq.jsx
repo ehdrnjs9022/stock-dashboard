@@ -20,14 +20,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import axios from "axios";
+import api from "../../api/api";
 
 const Nasdaq = () => {
   const [monthData, setMonthData] = useState([]);
   const [selectedData, setSelectedData] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/nasdaq/month`)
+    api
+      .get(`/api/nasdaq/month`)
       .then((res) => {
         const result = res.data.items.chart.result[0] || [];
         const indicators = result.indicators || [];

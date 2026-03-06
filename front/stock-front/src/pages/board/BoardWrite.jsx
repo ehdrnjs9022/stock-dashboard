@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState } from "react";
 import {
   WriteWrap,
   WriteBox,
@@ -10,18 +10,19 @@ import {
   SubmitBtn,
   CancelBtn,
   Title,
-} from './BoardWrite.style';
-import axios from 'axios';
-import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+} from "./BoardWrite.style";
+import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
 
 const BoardWrite = () => {
   const { auth } = useContext(AuthContext);
   const navi = useNavigate();
   const [form, setForm] = useState({
-    category: 'free',
-    title: '',
-    content: '',
+    category: "free",
+    title: "",
+    content: "",
   });
 
   const handleChange = (e) => {
@@ -31,18 +32,18 @@ const BoardWrite = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`http://localhost:8080/api/board/write`, form, {
+    api
+      .post(`/api/board/write`, form, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       })
       .then((res) => {
-        navi('/board');
-        console.log(res, '글쓰기성공');
+        navi("/board");
+        console.log(res, "글쓰기성공");
       })
       .catch((err) => {
-        console.log(err, '글쓰기 에러');
+        console.log(err, "글쓰기 에러");
       });
   };
 

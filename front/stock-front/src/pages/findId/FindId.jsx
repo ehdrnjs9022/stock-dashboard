@@ -11,6 +11,7 @@ import {
 } from "./FindId.styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
 
 const FindId = () => {
   const navi = useNavigate();
@@ -27,8 +28,8 @@ const FindId = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`http://localhost:8080/api/find-id`, findInfo)
+    api
+      .post(`/api/find-id`, findInfo)
       .then((res) => {
         alert(res.data.message);
         navi("/login");

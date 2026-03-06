@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+	
 
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
@@ -32,6 +33,10 @@ public class JwtFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
     	
+    	if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+    	    filterChain.doFilter(request, response);
+    	    return;
+    	}
     	
     	
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
