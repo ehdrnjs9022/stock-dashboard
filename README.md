@@ -20,6 +20,7 @@ React 기반의 인터랙티브 차트와 Spring Boot 백엔드, 여러 외부 A
 - Version Control: Git, GitHub
 - Tools: STS4, VS Code, DBeaver, Postman
 - External API: Yahoo Finance, AlphaVantage, Upbit, Naver API
+- Storage: AWS S3 (프로필 이미지 저장 및 관리)
 
 ## 주요 기능
 
@@ -29,6 +30,8 @@ React 기반의 인터랙티브 차트와 Spring Boot 백엔드, 여러 외부 A
 - Caffeine 캐싱 적용으로 API 호출 최적화
 - 마켓별 실시간 필터링과 인터랙티브 차트 (업차트 활용)
 - 게시판/댓글/좋아요 CRUD 및 권한별 기능 제어
+- AWS S3 객체 저장소를 활용한 프로필 이미지 저장 및 관리
+- 사용자 활동 내역 조회 기능 구현
 
 ## 대표 스크린샷
 
@@ -72,3 +75,9 @@ React 기반의 인터랙티브 차트와 Spring Boot 백엔드, 여러 외부 A
 3. JWT 인증 문제
 
 - Axios 인터셉터 헤더 누락 버그 수정 → 안정적인 토큰 전달 구현
+
+## Blog
+
+개발 공부 과정과 프로젝트 배포 경험을 정리하고 있습니다.
+https://dongkwon-dev.tistory.com/
+
