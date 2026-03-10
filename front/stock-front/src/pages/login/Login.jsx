@@ -9,7 +9,7 @@ import {
   Input,
   Button,
   ButtonGroup,
-} from "./login.styles";
+} from "./Login.styles";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
