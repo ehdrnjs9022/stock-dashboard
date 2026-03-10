@@ -3,7 +3,7 @@ import Home from "./pages/home/Home";
 import MainLayout from "./layouts/MainLayout";
 import Login from "./pages/login/Login";
 import SignUp from "./pages/signUp/SignUp";
-import FindId from "./pages/findid/FindId";
+import FindId from "./pages/findId/FindId";
 import FindPw from "./pages/findpPw/FIndPw";
 import Search from "./pages/search/Search";
 import Domestic from "./pages/domestic/Domestic";
