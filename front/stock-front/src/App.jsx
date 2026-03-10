@@ -21,7 +21,7 @@ import Mypage from "./pages/myPage/Mypage";
 import Password from "./pages/myPage/Password";
 import Board from "./pages/board/Board";
 import BoardDetails from "./pages/board/BoardDetails";
-import BoardWrite from "./pages/board/boardWrite";
+import BoardWrite from "./pages/board/BoardWrite";
 import BoardUpdate from "./pages/board/BoardUpdate";
 import MyCommentList from "./pages/myPage/MyCommentList";
 
