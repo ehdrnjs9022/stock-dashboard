@@ -26,6 +26,8 @@ const Kospi = () => {
   const [monthData, setMonthData] = useState([]);
   const [selectedData, setSelectedData] = useState(null);
 
+  const latest = monthData.at(-1);
+
   const CustomTooltip = ({ active, payload, setSelectedData }) => {
     useEffect(() => {
       if (active && payload.length > 0) {
@@ -75,19 +77,16 @@ const Kospi = () => {
       {/* 상단 핵심 요약 */}
       <SummaryBox>
         <div className="summary-header">
-          <h2>{monthData[20]?.date}</h2>
+          <h2>{latest?.date}</h2>
           <span className="label">KOSPI</span>
         </div>
-        <div className="price">
-          {monthData[20]?.regularMarketPrice.toFixed(2)}
-        </div>
+        <div className="price">{latest?.regularMarketPrice.toFixed(2)}</div>
         <div className="sub positive">
           {" "}
           {Number(
             (
-              ((monthData[20]?.regularMarketPrice -
-                monthData[20]?.chartPreviousClose) /
-                monthData[20]?.chartPreviousClose) *
+              ((latest?.regularMarketPrice - latest?.chartPreviousClose) /
+                latest?.chartPreviousClose) *
               100
             ).toFixed(2),
           ).toLocaleString()}

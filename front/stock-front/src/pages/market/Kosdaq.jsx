@@ -26,6 +26,8 @@ const Kosdaq = () => {
   const [monthData, setMonthData] = useState([]);
   const [selectedData, setSelectedData] = useState(null);
 
+  const latest = monthData.at(-1);
+
   const CustomTooltip = ({ active, payload, setSelectedData }) => {
     useEffect(() => {
       if (active && payload.length > 0) {
@@ -77,17 +79,16 @@ const Kosdaq = () => {
       {/* 상단 핵심 요약 */}
       <SummaryBox>
         <div className="summary-header">
-          <h2>{monthData[20]?.date}</h2>
+          <h2>{latest?.date}</h2>
           <span className="label">KOSDAQ</span>
         </div>
-        <div className="price">{monthData[17]?.regularMarketPrice}</div>
+        <div className="price">{latest?.regularMarketPrice}</div>
         <div className="sub positive">
           {" "}
           {Number(
             (
-              ((monthData[17]?.regularMarketPrice -
-                monthData[17]?.chartPreviousClose) /
-                monthData[17]?.chartPreviousClose) *
+              ((latest?.regularMarketPrice - latest?.chartPreviousClose) /
+                latest?.chartPreviousClose) *
               100
             ).toFixed(2),
           ).toLocaleString()}

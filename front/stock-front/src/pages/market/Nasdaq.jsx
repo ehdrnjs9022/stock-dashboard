@@ -26,6 +26,8 @@ const Nasdaq = () => {
   const [monthData, setMonthData] = useState([]);
   const [selectedData, setSelectedData] = useState(null);
 
+  const latest = monthData.at(-1);
+
   useEffect(() => {
     api
       .get(`/api/nasdaq/month`)
@@ -77,20 +79,17 @@ const Nasdaq = () => {
       {/* 상단 핵심 요약 */}
       <SummaryBox>
         <div className="summary-header">
-          <h2>{monthData[22]?.date}</h2>
+          <h2>{latest?.date}</h2>
           <span className="label">NASDAQ</span>
         </div>
         <div className="price">
-          {Number(
-            monthData[21]?.regularMarketPrice.toFixed(2),
-          ).toLocaleString()}
+          {Number(latest?.regularMarketPrice.toFixed(2)).toLocaleString()}
         </div>
         <div className="sub positive">
           {Number(
             (
-              ((monthData[21]?.regularMarketPrice -
-                monthData[21]?.chartPreviousClose) /
-                monthData[21]?.chartPreviousClose) *
+              ((latest?.regularMarketPrice - latest?.chartPreviousClose) /
+                latest?.chartPreviousClose) *
               100
             ).toFixed(2),
           ).toLocaleString()}
