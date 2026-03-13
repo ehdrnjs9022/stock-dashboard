@@ -47,7 +47,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "front/stock-front/dist/*"
+          source: "dist/*"
           target: "/home/ubuntu/deploy/dist"
 
       - name: Restart Container
