@@ -1,5 +1,7 @@
 package com.dk.project.security;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,7 +23,7 @@ import com.dk.project.security.filter.JwtFilter;
 
 import lombok.RequiredArgsConstructor;
 
-@EnableMethodSecurity
+@EnableMethodSecurity	
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfigure {
@@ -105,17 +107,14 @@ public class SecurityConfigure {
 	
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
-
 	    CorsConfiguration configuration = new CorsConfiguration();
-
-	    configuration.addAllowedOriginPattern("*");
-	    configuration.addAllowedMethod("*");
-	    configuration.addAllowedHeader("*");
+	    configuration.setAllowedOrigins(List.of("https://dongkwon.shop", "https://www.dongkwon.shop"));
+	    configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+	    configuration.setAllowedHeaders(List.of("*"));
 	    configuration.setAllowCredentials(true);
 
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	    source.registerCorsConfiguration("/**", configuration);
-
 	    return source;
 	}
 	
