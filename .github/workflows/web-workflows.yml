@@ -11,6 +11,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: front/stock-front
+
     steps:
       - uses: actions/checkout@v4
 
@@ -22,13 +26,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
-        working-directory: front/stock-front
 
       - name: Build
         run: npm run build
-        working-directory: front/stock-front
 
-      - name: Prepare Target Directory
+      - name: Prepare Target Directory Test
         if: github.event_name == 'push'
         uses: appleboy/ssh-action@master
         with:
@@ -41,15 +43,14 @@ jobs:
 
       - name: Deploy React Project To EC2
         if: github.event_name == 'push'
-        uses: appleboy/ssh-action@master
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script: |
-            # front/stock-front/dist 안 파일만 tar로 묶어서 target에 풀기
-            cd front/stock-front
-            tar czf - dist | ssh -i ${{ secrets.SSH_KEY }} ubuntu@${{ secrets.HOST }} "tar xzf - -C /home/ubuntu/deploy/dist --strip-components=1"
+          source: "front/stock-front/dist/*"
+          target: "/home/ubuntu/deploy/dist"
+          strip_components: 3
 
       - name: Restart Container
         if: github.event_name == 'push'
