@@ -14,14 +14,14 @@ React 기반의 인터랙티브 차트와 Spring Boot 백엔드, 여러 외부 A
 
 ## 기술 스택
 
-Frontend: React, HTML, CSS, Axios, Styled Components
-Backend: Spring Boot 3.4.4, Spring Security, JWT, MyBatis, JDBC
-Database: Oracle 18c
-Version Control: Git, GitHub
-Tools: STS4, VS Code, DBeaver, Postman
-External API: Yahoo Finance, AlphaVantage, Upbit, Naver API
-Storage: AWS S3 (프로필 이미지 저장 및 관리)
-Infrastructure / DevOps: Docker, HTTPS, AWS EC2, GitHub Actions 자동 배포, Route 53 도메인 연결
+- Frontend: React, HTML, CSS, Axios, Styled Components
+- Backend: Spring Boot 3.4.4, Spring Security, JWT, MyBatis, JDBC
+- Database: Oracle 18c
+- Version Control: Git, GitHub
+- Tools: STS4, VS Code, DBeaver, Postman
+- External API: Yahoo Finance, AlphaVantage, Upbit, Naver API
+- Storage: AWS S3 (프로필 이미지 저장 및 관리)
+- Infrastructure / DevOps: Docker, HTTPS, AWS EC2, GitHub Actions 자동 배포, Route 53 도메인 연결
 
 ## 주요 기능
 
